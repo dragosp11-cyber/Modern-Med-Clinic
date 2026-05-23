@@ -3,16 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modern Med Clinic Focșani | Medicină internă, gastroenterologie, ginecologie, ecografii</title>
-<meta name="description" content="Modern Med Clinic SRL din Focșani oferă consultații de medicină internă, gastroenterologie, obstetrică-ginecologie, ortopedie, reumatologie și ecografii prin medici specialiști și primari.">
-<meta name="robots" content="index,follow">
+<title>Modern Med Clinic Focșani | Consultații medicale, ecografii și CNAS</title>
+<meta name="description" content="Modern Med Clinic SRL Focșani: consultații de medicină internă, gastroenterologie, obstetrică-ginecologie, ortopedie, reumatologie și ecografii. Programări: 0733 100 837.">
+<meta name="keywords" content="Modern Med Clinic, clinică medicală Focșani, medicină internă Focșani, gastroenterologie Focșani, ginecologie Focșani, obstetrică Focșani, ortopedie Focșani, reumatologie Focșani, ecografie Focșani, ecografie Doppler Focșani, CNAS Vrancea">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="author" content="Modern Med Clinic SRL">
+<meta name="geo.region" content="RO-VN">
+<meta name="geo.placename" content="Focșani, Vrancea">
+<meta name="geo.position" content="45.682985;27.182893">
+<meta name="ICBM" content="45.682985, 27.182893">
 <meta name="theme-color" content="#b81c1c">
+<link rel="canonical" href="https://modernmedclinic.ro/">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="apple-touch-icon" href="/assets/favicon.svg">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ro_RO">
+<meta property="og:url" content="https://modernmedclinic.ro/">
 <meta property="og:title" content="Modern Med Clinic Focșani">
-<meta property="og:description" content="Consultații de specialitate și investigații ecografice în Focșani, Vrancea.">
+<meta property="og:description" content="Consultații de specialitate, ecografii și servicii medicale în Focșani, Vrancea. Programări: 0733 100 837.">
 <meta property="og:site_name" content="Modern Med Clinic">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://modernmedclinic.ro/assets/og-image.svg">
+<meta property="og:image:alt" content="Modern Med Clinic Focșani">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Modern Med Clinic Focșani">
+<meta name="twitter:description" content="Consultații medicale și ecografii în Focșani, Vrancea.">
+<meta name="twitter:image" content="https://modernmedclinic.ro/assets/og-image.svg">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -103,6 +121,12 @@ section { padding:72px 24px; }
 .card-details { margin-top:12px; padding-top:10px; border-top:1px solid var(--gray-100); }
 .card-details li { font-size:.82rem; color:var(--gray-600); padding:2px 0 2px 16px; position:relative; list-style:none; }
 .card-details li::before { content:'›'; position:absolute; left:2px; color:var(--red); font-weight:700; }
+.seo-service-links { margin-top:40px; padding:24px; background:var(--white); border:1px solid var(--gray-200); border-radius:var(--radius); box-shadow:var(--shadow); }
+.seo-service-links h3 { font-size:1.05rem; margin-bottom:10px; }
+.seo-service-links p { color:var(--gray-600); font-size:.9rem; margin-bottom:14px; }
+.seo-service-links nav { display:flex; flex-wrap:wrap; gap:10px; }
+.seo-service-links a { color:var(--red); background:var(--red-pale); border-radius:100px; padding:8px 14px; text-decoration:none; font-size:.85rem; font-weight:600; }
+.seo-service-links a:hover { text-decoration:underline; }
 
 /* DOCTORS */
 .doctors-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; }
@@ -235,9 +259,17 @@ footer strong { color:var(--white); }
 {
   "@context": "https://schema.org",
   "@type": "MedicalClinic",
+  "@id": "https://modernmedclinic.ro/#clinic",
   "name": "Modern Med Clinic SRL",
+  "legalName": "Modern Med Clinic SRL",
   "url": "https://modernmedclinic.ro",
-  "telephone": "+40733100837",
+  "image": "https://modernmedclinic.ro/assets/og-image.svg",
+  "logo": "https://modernmedclinic.ro/assets/favicon.svg",
+  "telephone": ["+40733100837", "+40734264176"],
+  "email": "contact@modernmedclinic.ro",
+  "priceRange": "$$",
+  "vatID": "35848675",
+  "description": "Modern Med Clinic SRL oferă consultații de specialitate și investigații ecografice în Focșani, Vrancea.",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Bulevardul București nr. 5",
@@ -253,12 +285,61 @@ footer strong { color:var(--white); }
     "Orthopedic",
     "Rheumatologic"
   ],
+  "hasMap": "https://www.google.com/maps/dir/?api=1&destination=Modern+Med+Clinic,+Bulevardul+Bucuresti+5,+Focsani",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 45.682985,
+    "longitude": 27.182893
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Focșani" },
+    { "@type": "AdministrativeArea", "name": "Vrancea" }
+  ],
+  "availableService": [
+    { "@type": "MedicalProcedure", "name": "Consultație Medicină Internă" },
+    { "@type": "MedicalProcedure", "name": "Consultație Gastroenterologie" },
+    { "@type": "MedicalProcedure", "name": "Consultație Obstetrică-Ginecologie" },
+    { "@type": "MedicalProcedure", "name": "Consultație Ortopedie-Traumatologie" },
+    { "@type": "MedicalProcedure", "name": "Consultație Reumatologie" },
+    { "@type": "MedicalProcedure", "name": "Ecografie generală" },
+    { "@type": "MedicalProcedure", "name": "Ecocardiografie" },
+    { "@type": "MedicalProcedure", "name": "Eco Doppler vascular" }
+  ],
+  "employee": [
+    {
+      "@type": "Physician",
+      "name": "Dr. Popescu Decebal",
+      "medicalSpecialty": ["InternalMedicine", "Gastroenterologic"],
+      "telephone": "+40733100837"
+    },
+    {
+      "@type": "Physician",
+      "name": "Dr. Boicu Adrian",
+      "medicalSpecialty": "Orthopedic",
+      "telephone": "+40734264176"
+    },
+    {
+      "@type": "Physician",
+      "name": "Dr. Maxim Carmina",
+      "medicalSpecialty": "Rheumatologic",
+      "telephone": "+40734264176"
+    },
+    {
+      "@type": "Physician",
+      "name": "Dr. Popescu Dragoș",
+      "medicalSpecialty": "Gynecologic",
+      "telephone": "+40734264176"
+    }
+  ],
   "openingHoursSpecification": [{
     "@type": "OpeningHoursSpecification",
     "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
     "opens": "15:30",
     "closes": "20:30"
-  }]
+  }],
+  "sameAs": [
+    "https://www.google.com/maps/search/?api=1&query=Modern+Med+Clinic+Focsani"
+  ]
 }
 </script>
 </head>
@@ -486,6 +567,18 @@ footer strong { color:var(--white); }
         <p>Ecografie obstetricală și ginecologică — monitorizare sarcină, evaluări fetale, patologie pelviană.</p>
         <span class="tag tag-amber">Fără bilet de trimitere</span>
       </div>
+    </div>
+    <div class="seo-service-links">
+      <h3>Specialități medicale în Focșani</h3>
+      <p>Pagini dedicate pentru pacienții care caută servicii medicale specifice în Focșani și Vrancea.</p>
+      <nav aria-label="Pagini specialități">
+        <a href="/medicina-interna-focsani.html">Medicină internă Focșani</a>
+        <a href="/gastroenterologie-focsani.html">Gastroenterologie Focșani</a>
+        <a href="/ginecologie-focsani.html">Ginecologie Focșani</a>
+        <a href="/ortopedie-focsani.html">Ortopedie Focșani</a>
+        <a href="/reumatologie-focsani.html">Reumatologie Focșani</a>
+        <a href="/ecografie-focsani.html">Ecografie Focșani</a>
+      </nav>
     </div>
   </div>
 </section>

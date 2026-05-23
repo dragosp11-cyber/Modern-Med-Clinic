@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Modern Med Clinic Focșani">
+  <rect width="1200" height="630" fill="#b81c1c"/>
+  <circle cx="1040" cy="60" r="360" fill="#ffffff" opacity=".08"/>
+  <circle cx="90" cy="610" r="310" fill="#000000" opacity=".08"/>
+  <g transform="translate(90 135)">
+    <rect x="70" y="0" width="100" height="220" rx="12" fill="#ffffff"/>
+    <rect x="10" y="60" width="220" height="100" rx="12" fill="#ffffff"/>
+    <circle cx="120" cy="64" r="23" fill="#b81c1c"/>
+    <path d="M84 105c0-17 13-25 36-25s36 8 36 25v66c0 7-5 12-12 12H96c-7 0-12-5-12-12Z" fill="#b81c1c"/>
+    <path d="M104 80l16 38 16-38" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+    <rect x="114" y="124" width="12" height="28" rx="3" fill="#ffffff"/>
+    <rect x="102" y="132" width="36" height="12" rx="3" fill="#ffffff"/>
+  </g>
+  <text x="360" y="240" fill="#ffffff" font-size="72" font-weight="700" font-family="Georgia, serif">Modern Med Clinic</text>
+  <text x="364" y="305" fill="#ffffff" font-size="34" font-weight="600" font-family="Arial, sans-serif">Focșani, Vrancea</text>
+  <text x="364" y="370" fill="#ffffff" opacity=".92" font-size="30" font-family="Arial, sans-serif">Consultații medicale • Ecografii • CNAS</text>
+  <text x="364" y="430" fill="#ffffff" font-size="32" font-weight="700" font-family="Arial, sans-serif">Programări: 0733 100 837 • 0734 264 176</text>
+</svg>
