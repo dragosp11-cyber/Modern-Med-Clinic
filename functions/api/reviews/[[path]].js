@@ -119,6 +119,16 @@ async function sendEmail(env, subject, body) {
   if (!response.ok) throw new Error(`Email provider error: ${response.status}`);
 }
 
+async function trySendEmail(env, subject, body) {
+  try {
+    await sendEmail(env, subject, body);
+    return true;
+  } catch (error) {
+    console.error('Review email failed:', error.message || error);
+    return false;
+  }
+}
+
 async function handleList(env) {
   const reviews = await getReviews(env);
   const approved = reviews.filter(review => review.status === 'approved');
@@ -174,9 +184,9 @@ async function handleCreate(request, env) {
     : null;
 
   if (review.status === 'pending') {
-    await sendEmail(env, 'APROBARE recenzie Modern Med Clinic', emailHtml(review, 'Recenzie care necesită aprobare', approvalLinks));
+    await trySendEmail(env, 'APROBARE recenzie Modern Med Clinic', emailHtml(review, 'Recenzie care necesită aprobare', approvalLinks));
   } else if (review.patientEmail || review.patientPhone || review.comment) {
-    await sendEmail(env, 'Recenzie Modern Med Clinic', emailHtml(review, 'Recenzie nouă', null));
+    await trySendEmail(env, 'Recenzie Modern Med Clinic', emailHtml(review, 'Recenzie nouă', null));
   }
 
   return json({ ok: true, status: review.status }, 201);
