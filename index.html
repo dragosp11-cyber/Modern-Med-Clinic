@@ -768,8 +768,12 @@ document.querySelectorAll('.nav-links a').forEach(a=>{a.addEventListener('click'
 
 const navLinksAll=document.querySelectorAll('.nav-links a[data-section]');
 const sectionIds=Array.from(navLinksAll).map(a=>a.dataset.section);
-const sections=sectionIds.map(id=>document.getElementById(id)).filter(Boolean);
-function updateActiveNav(){const scrollY=window.scrollY+120;let currentId='';for(let i=sections.length-1;i>=0;i--){if(sections[i].offsetTop<=scrollY){currentId=sections[i].id;break;}}navLinksAll.forEach(link=>{link.classList.toggle('active',link.dataset.section===currentId);});}
+const sections=sectionIds.map(id=>document.getElementById(id)).filter(Boolean).sort((a,b)=>a.offsetTop-b.offsetTop);
+let pendingNavSection='';
+let pendingNavTimer=0;
+function setActiveNav(currentId){navLinksAll.forEach(link=>{link.classList.toggle('active',link.dataset.section===currentId);});}
+function updateActiveNav(){if(pendingNavSection){setActiveNav(pendingNavSection);return;}let currentId=sections[0]?.id||'';const scrollY=window.scrollY+120;if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-8){currentId=sections[sections.length-1]?.id||currentId;}else{for(const section of sections){if(section.offsetTop<=scrollY){currentId=section.id;}else{break;}}}setActiveNav(currentId);}
+navLinksAll.forEach(link=>{link.addEventListener('click',()=>{pendingNavSection=link.dataset.section;setActiveNav(pendingNavSection);clearTimeout(pendingNavTimer);pendingNavTimer=setTimeout(()=>{pendingNavSection='';updateActiveNav();},1600);});});
 window.addEventListener('scroll',updateActiveNav,{passive:true});
 window.addEventListener('load',updateActiveNav);
 
