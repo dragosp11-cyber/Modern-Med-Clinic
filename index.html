@@ -211,14 +211,21 @@ textarea:focus,select:focus,input:focus { outline:none; border-color:var(--red);
 .semester-label { background:var(--red-pale); color:var(--red); padding:6px 16px; border-radius:100px; font-size:.85rem; font-weight:600; display:inline-flex; align-items:center; gap:6px; }
 .semester-label svg { width:14px; height:14px; }
 .reviews-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; }
-.review-card { background:var(--white); border-radius:var(--radius); padding:24px; border:1px solid var(--gray-200); box-shadow:var(--shadow); }
-.review-stars { color:var(--accent-gold); font-size:1.1rem; margin-bottom:8px; }
-.review-text { font-size:.9rem; color:var(--gray-600); font-style:italic; margin-bottom:12px; }
+.review-card { background:var(--white); border-radius:var(--radius); padding:24px; border:1px solid var(--gray-200); box-shadow:var(--shadow); min-height:190px; display:flex; flex-direction:column; justify-content:space-between; }
+.review-top { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; margin-bottom:12px; }
+.review-stars { color:var(--accent-gold); font-size:1.05rem; letter-spacing:1px; white-space:nowrap; }
+.review-score { color:var(--red); font-weight:700; font-size:.9rem; background:var(--red-pale); padding:4px 10px; border-radius:100px; white-space:nowrap; }
+.review-text { font-size:.92rem; color:var(--gray-600); font-style:italic; margin-bottom:14px; line-height:1.7; }
 .review-meta { font-size:.78rem; color:var(--gray-400); }
-.review-category { display:inline-block; background:var(--gray-100); padding:3px 10px; border-radius:100px; font-size:.75rem; color:var(--gray-600); margin-top:6px; }
+.review-category { display:inline-block; background:var(--gray-100); padding:3px 10px; border-radius:100px; font-size:.75rem; color:var(--gray-600); margin-top:8px; }
 .avg-score { font-family:'Playfair Display',serif; font-size:3rem; font-weight:700; color:var(--red); line-height:1; }
 .avg-label { font-size:.85rem; color:var(--gray-400); }
-.reviews-empty { color:var(--gray-600); background:var(--white); border:1px dashed var(--gray-200); border-radius:var(--radius); padding:24px; text-align:center; }
+.reviews-summary { text-align:center; background:var(--white); border:1px solid var(--gray-200); border-radius:var(--radius); padding:18px 22px; box-shadow:var(--shadow); min-width:190px; }
+.avg-stars { color:var(--accent-gold); font-size:1rem; letter-spacing:1px; margin-top:6px; min-height:22px; }
+.reviews-empty { grid-column:1/-1; color:var(--gray-600); background:var(--white); border:1px dashed var(--gray-200); border-radius:var(--radius); padding:32px 24px; text-align:center; }
+.reviews-empty strong { display:block; color:var(--navy); font-size:1rem; margin-bottom:6px; }
+.reviews-empty a { display:inline-flex; margin-top:14px; align-items:center; justify-content:center; color:var(--white); background:var(--red); text-decoration:none; font-weight:700; font-size:.86rem; border-radius:var(--radius-sm); padding:10px 16px; }
+.reviews-empty a:hover { background:var(--red-light); }
 
 /* FOOTER */
 footer { background:var(--navy); color:rgba(255,255,255,.7); padding:48px 24px 32px; text-align:center; font-size:.85rem; }
@@ -742,10 +749,15 @@ footer strong { color:var(--white); }
   <div class="container">
     <div class="reviews-header">
       <div><h2 class="section-title">Ce spun pacienții noștri</h2><p class="section-sub" style="margin-bottom:0;">Comentarii anonime din chestionarele de satisfacție</p></div>
-      <div style="text-align:center;"><div class="avg-score" id="avgScore">—</div><div class="avg-label" id="avgLabel">scor mediu · recenzii aprobate</div><div class="semester-label" style="margin-top:8px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><use href="#icon-calendar"/></svg> Actualizat automat</div></div>
+      <div class="reviews-summary">
+        <div class="avg-score" id="avgScore">—</div>
+        <div class="avg-stars" id="avgStars" aria-label="Media recenziilor">☆☆☆☆☆</div>
+        <div class="avg-label" id="avgLabel">scor mediu · recenzii aprobate</div>
+        <div class="semester-label" style="margin-top:8px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><use href="#icon-calendar"/></svg> Actualizat automat</div>
+      </div>
     </div>
     <div class="reviews-grid" id="reviewsGrid">
-      <div class="reviews-empty">Recenziile aprobate vor apărea aici după completarea chestionarului.</div>
+      <div class="reviews-empty"><strong>Nu sunt încă recenzii publicate.</strong>Primele comentarii aprobate vor apărea aici după completarea chestionarului.<br><a href="#chestionar">Lasă feedback anonim</a></div>
     </div>
   </div>
 </section>
@@ -782,6 +794,7 @@ document.querySelectorAll('.stars').forEach(group=>{const stars=group.querySelec
 
 function showFormAlert(type,message){const alert=document.getElementById('formAlert');alert.className='form-alert '+type;alert.textContent=message;}
 function starsText(score){const n=Math.max(0,Math.min(5,Math.round(score||0)));return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n);}
+function emptyReviewsHtml(message='Primele comentarii aprobate vor apărea aici după completarea chestionarului.'){return `<div class="reviews-empty"><strong>Nu sunt încă recenzii publicate.</strong>${message}<br><a href="#chestionar">Lasă feedback anonim</a></div>`;}
 function escapeHtml(value){return String(value||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
 function formatMonth(dateString){const d=new Date(dateString);return d.toLocaleDateString('ro-RO',{month:'long',year:'numeric'});}
 
@@ -790,13 +803,15 @@ async function loadReviews(){
     const res=await fetch('/api/reviews');
     if(!res.ok) throw new Error('Nu am putut încărca recenziile.');
     const data=await res.json();
-    document.getElementById('avgScore').textContent=data.count?Number(data.average).toFixed(1):'—';
-    document.getElementById('avgLabel').textContent=data.count?`scor mediu · ${data.count} recenzii aprobate`:'scor mediu · recenzii aprobate';
+    const hasReviews=Number(data.count)>0;
+    document.getElementById('avgScore').textContent=hasReviews?Number(data.average).toFixed(1):'—';
+    document.getElementById('avgStars').textContent=hasReviews?starsText(data.average):'☆☆☆☆☆';
+    document.getElementById('avgLabel').textContent=hasReviews?`scor mediu · ${data.count} recenzii aprobate`:'scor mediu · recenzii aprobate';
     const grid=document.getElementById('reviewsGrid');
-    if(!data.reviews.length){grid.innerHTML='<div class="reviews-empty">Recenziile aprobate vor apărea aici după completarea chestionarului.</div>';return;}
-    grid.innerHTML=data.reviews.map(r=>`<div class="review-card fade-up"><div class="review-stars">${starsText(r.generalRating)}</div><div class="review-text">„${escapeHtml(r.comment)}”</div><div class="review-meta">Pacient anonim · ${formatMonth(r.createdAt)}</div><div class="review-category">${escapeHtml(r.specialty)}</div></div>`).join('');
+    if(!data.reviews.length){grid.innerHTML=emptyReviewsHtml(hasReviews?'Există răspunsuri aprobate, dar momentan nu există comentarii scrise publicate.':'Primele comentarii aprobate vor apărea aici după completarea chestionarului.');return;}
+    grid.innerHTML=data.reviews.map(r=>`<article class="review-card fade-up"><div><div class="review-top"><div class="review-stars" aria-label="${Number(r.generalRating).toFixed(0)} din 5 stele">${starsText(r.generalRating)}</div><div class="review-score">${Number(r.generalRating).toFixed(0)}/5</div></div><div class="review-text">„${escapeHtml(r.comment)}”</div></div><div class="review-footer"><div class="review-meta">Pacient anonim · ${formatMonth(r.createdAt)}</div><div class="review-category">${escapeHtml(r.specialty)}</div></div></article>`).join('');
   }catch(err){
-    document.getElementById('reviewsGrid').innerHTML='<div class="reviews-empty">Recenziile nu pot fi încărcate momentan.</div>';
+    document.getElementById('reviewsGrid').innerHTML=emptyReviewsHtml('Recenziile nu pot fi încărcate momentan. Formularul rămâne disponibil pentru feedback.');
   }
 }
 
