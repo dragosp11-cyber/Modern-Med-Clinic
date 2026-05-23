@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Med Clinic Focșani | Medicină internă, gastroenterologie, ginecologie, ecografii</title>
+<meta name="description" content="Modern Med Clinic SRL din Focșani oferă consultații de medicină internă, gastroenterologie, obstetrică-ginecologie, ortopedie, reumatologie și ecografii prin medici specialiști și primari.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#b81c1c">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:title" content="Modern Med Clinic Focșani">
+<meta property="og:description" content="Consultații de specialitate și investigații ecografice în Focșani, Vrancea.">
+<meta property="og:site_name" content="Modern Med Clinic">
+<meta name="twitter:card" content="summary">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --red: #b81c1c; --red-dark: #8b1515; --red-light: #d42b2b; --red-pale: #fdf0f0;
+  --navy: #1a1f2e; --white: #ffffff; --off-white: #faf8f8;
+  --gray-50: #f9f6f6; --gray-100: #f2eded; --gray-200: #e4dcdc;
+  --gray-400: #9a8e8e; --gray-600: #6b5e5e;
+  --accent-gold: #d4a84b; --green-soft: #2d9d6a; --green-bg: #e6f7ee;
+  --amber-bg: #fef3e0; --amber-text: #b8860b;
+  --shadow: 0 2px 20px rgba(184,28,28,0.06);
+  --shadow-lg: 0 8px 40px rgba(184,28,28,0.10);
+  --radius: 12px; --radius-sm: 8px;
+}
+html { scroll-behavior: smooth; }
+body { font-family:'DM Sans',sans-serif; color:var(--navy); background:var(--off-white); line-height:1.6; -webkit-font-smoothing:antialiased; }
+
+/* NAV */
+.nav { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(255,255,255,0.95); backdrop-filter:blur(16px); border-bottom:1px solid var(--gray-200); transition:box-shadow .3s; }
+.nav.scrolled { box-shadow:0 2px 24px rgba(184,28,28,0.08); }
+.nav-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:0 24px; height:72px; }
+.nav-logo { display:flex; align-items:center; gap:14px; text-decoration:none; }
+.logo-text { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; line-height:1.15; }
+.logo-text .t1 { color:var(--red); display:block; }
+.logo-text .t2 { color:var(--navy); display:block; font-size:.78rem; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; font-family:'DM Sans',sans-serif; }
+.nav-links { display:flex; gap:4px; list-style:none; }
+.nav-links a { text-decoration:none; color:var(--gray-600); font-size:.88rem; font-weight:500; transition:color .2s,background .2s; padding:8px 14px; border-radius:8px; border-bottom:2px solid transparent; }
+.nav-links a:hover { color:var(--red); }
+.nav-links a.active { color:var(--red); font-weight:600; background:var(--red-pale); border-bottom:2px solid var(--red); border-radius:8px 8px 0 0; }
+.hamburger { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:4px; }
+.hamburger span { display:block; width:24px; height:2px; background:var(--navy); transition:.3s; }
+
+/* HERO */
+.hero { margin-top:72px; background:linear-gradient(140deg,var(--red-dark) 0%,var(--red) 40%,var(--red-light) 100%); color:var(--white); padding:80px 24px 72px; text-align:center; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; top:-50%; right:-15%; width:650px; height:650px; border-radius:50%; background:rgba(255,255,255,0.04); }
+.hero::after { content:''; position:absolute; bottom:-40%; left:-10%; width:500px; height:500px; border-radius:50%; background:rgba(0,0,0,0.06); }
+.hero-content { position:relative; z-index:1; }
+.hero-logo-wrap { display:inline-flex; align-items:center; justify-content:center; margin-bottom:24px; background:rgba(255,255,255,0.12); border:2px solid rgba(255,255,255,0.25); border-radius:20px; padding:16px 20px; }
+.hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3rem); font-weight:700; margin-bottom:12px; }
+.hero p.hero-desc { font-size:1.1rem; opacity:.85; max-width:560px; margin:0 auto 28px; }
+.hero-badges { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:24px; }
+.hero-badge { background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.22); border-radius:100px; padding:8px 20px; font-size:.85rem; font-weight:500; display:inline-flex; align-items:center; gap:8px; }
+.hero-badge svg { width:16px; height:16px; }
+.hero-cta { margin-top:32px; display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+.hero-btn { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:var(--radius-sm); font-size:.95rem; font-weight:600; text-decoration:none; transition:transform .2s,box-shadow .2s; font-family:inherit; }
+.hero-btn-primary { background:var(--white); color:var(--red); box-shadow:0 4px 20px rgba(0,0,0,0.15); }
+.hero-btn-primary:hover { transform:translateY(-2px); box-shadow:0 6px 28px rgba(0,0,0,0.2); }
+.hero-btn-secondary { background:rgba(255,255,255,0.15); color:var(--white); border:1px solid rgba(255,255,255,0.3); }
+.hero-btn-secondary:hover { background:rgba(255,255,255,0.25); transform:translateY(-1px); }
+.hero-btn svg { width:16px; height:16px; }
+
+/* DESPRE */
+#despre { background:var(--white); padding:72px 24px; }
+.despre-inner { max-width:900px; margin:0 auto; display:grid; grid-template-columns:4px 1fr; gap:32px; }
+.despre-accent { background:linear-gradient(180deg,var(--red) 0%,var(--red-light) 100%); border-radius:4px; }
+.despre-content h2 { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; color:var(--navy); margin-bottom:24px; }
+.despre-content p { font-size:.95rem; color:var(--gray-600); margin-bottom:16px; line-height:1.75; }
+.despre-content p:last-of-type { margin-bottom:0; }
+.despre-content p strong { color:var(--navy); font-weight:600; }
+.despre-list { margin:16px 0 20px 0; list-style:none; }
+.despre-list li { font-size:.93rem; color:var(--gray-600); line-height:1.75; padding:4px 0 4px 28px; position:relative; }
+.despre-list li::before { content:''; position:absolute; left:4px; top:12px; width:8px; height:8px; border-radius:50%; background:var(--red); }
+.despre-highlight { margin-top:28px; padding:24px 28px; background:var(--red-pale); border-radius:var(--radius); border-left:4px solid var(--red); }
+.despre-highlight p { color:var(--navy); font-weight:500; margin-bottom:0; font-size:.95rem; }
+
+/* SECTIONS */
+section { padding:72px 24px; }
+.container { max-width:1100px; margin:0 auto; }
+.section-title { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; margin-bottom:8px; color:var(--navy); }
+.section-sub { color:var(--gray-600); margin-bottom:40px; font-size:1rem; }
+.sub-label { font-size:.85rem; color:var(--red); margin-bottom:16px; text-transform:uppercase; letter-spacing:1.5px; font-weight:700; display:flex; align-items:center; gap:10px; }
+.sub-label::after { content:''; flex:1; height:1px; background:var(--gray-200); }
+
+/* CARDS */
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+.card { background:var(--white); border-radius:var(--radius); padding:28px 24px; box-shadow:var(--shadow); border:1px solid var(--gray-200); transition:transform .25s,box-shadow .25s; position:relative; }
+.card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--red); border-radius:var(--radius) var(--radius) 0 0; opacity:0; transition:opacity .25s; }
+.card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+.card:hover::before { opacity:1; }
+.card-icon { width:48px; height:48px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; background:var(--red-pale); color:var(--red); }
+.card-icon svg { width:24px; height:24px; }
+.card h3 { font-size:1.05rem; font-weight:700; margin-bottom:6px; }
+.card .card-subtitle { font-size:.78rem; color:var(--red); font-weight:600; margin-bottom:8px; text-transform:uppercase; letter-spacing:.5px; }
+.card p { font-size:.9rem; color:var(--gray-600); }
+.card .tag { display:inline-flex; align-items:center; gap:5px; margin-top:10px; font-size:.75rem; font-weight:600; padding:4px 12px; border-radius:100px; }
+.tag-green { background:var(--green-bg); color:var(--green-soft); }
+.tag-amber { background:var(--amber-bg); color:var(--amber-text); }
+.card-details { margin-top:12px; padding-top:10px; border-top:1px solid var(--gray-100); }
+.card-details li { font-size:.82rem; color:var(--gray-600); padding:2px 0 2px 16px; position:relative; list-style:none; }
+.card-details li::before { content:'›'; position:absolute; left:2px; color:var(--red); font-weight:700; }
+
+/* DOCTORS */
+.doctors-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; }
+.doctor-card { background:var(--white); border-radius:var(--radius); padding:32px 28px; box-shadow:var(--shadow); border:1px solid var(--gray-200); display:flex; gap:20px; align-items:flex-start; transition:transform .25s,box-shadow .25s; }
+.doctor-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-lg); }
+.doctor-avatar { width:64px; height:64px; border-radius:50%; background:var(--red); color:var(--white); display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; font-family:'Playfair Display',serif; font-weight:700; }
+.doctor-info h3 { font-size:1.05rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.doctor-info .title { font-size:.85rem; color:var(--red); font-weight:600; margin-bottom:4px; line-height:1.4; }
+.doctor-info .competences { font-size:.83rem; color:var(--gray-600); margin-bottom:10px; line-height:1.5; }
+.doctor-info .phone-link { display:inline-flex; align-items:center; gap:6px; color:var(--red); font-weight:600; font-size:.9rem; text-decoration:none; }
+.doctor-info .phone-link svg { width:14px; height:14px; }
+.doctor-info .phone-link:hover { text-decoration:underline; }
+
+/* CONTACT */
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+.contact-info { background:var(--white); border-radius:var(--radius); padding:32px; box-shadow:var(--shadow); border:1px solid var(--gray-200); }
+.contact-row { display:flex; gap:14px; align-items:flex-start; padding:14px 0; border-bottom:1px solid var(--gray-100); }
+.contact-row:last-child { border-bottom:none; }
+.contact-row .c-icon { flex-shrink:0; width:36px; height:36px; border-radius:8px; background:var(--red-pale); color:var(--red); display:flex; align-items:center; justify-content:center; }
+.contact-row .c-icon svg { width:18px; height:18px; }
+.contact-row .label { font-size:.78rem; color:var(--gray-400); text-transform:uppercase; letter-spacing:.5px; }
+.contact-row .value { font-weight:500; font-size:.95rem; margin-top:2px; }
+.contact-row .value-line { display:block; margin-top:4px; }
+.contact-row a { color:var(--red); text-decoration:none; }
+.contact-row a:hover { text-decoration:underline; }
+.map-wrap { border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--gray-200); min-height:360px; position:relative; }
+.map-wrap iframe { width:100%; height:100%; min-height:360px; border:0; }
+.map-overlay { position:absolute; top:0; left:0; right:0; bottom:0; cursor:pointer; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding:20px; background:transparent; text-decoration:none; transition:background .3s; }
+.map-overlay:hover { background:rgba(184,28,28,0.06); }
+.map-directions-btn { display:inline-flex; align-items:center; gap:8px; background:var(--red); color:var(--white); padding:12px 24px; border-radius:var(--radius-sm); font-size:.9rem; font-weight:600; font-family:inherit; box-shadow:0 4px 16px rgba(0,0,0,0.2); transition:transform .2s,box-shadow .2s; }
+.map-overlay:hover .map-directions-btn { transform:translateY(-2px); box-shadow:0 6px 24px rgba(184,28,28,0.3); }
+.map-directions-btn svg { width:18px; height:18px; }
+.map-pin { position:absolute; top:50%; left:50%; transform:translate(-50%,-100%); z-index:3; pointer-events:none; filter:drop-shadow(0 3px 6px rgba(0,0,0,0.3)); animation:pinBounce 2s ease infinite; }
+@keyframes pinBounce { 0%,100%{transform:translate(-50%,-100%)} 50%{transform:translate(-50%,-108%)} }
+
+/* SCHEDULE */
+.schedule { width:100%; border-collapse:collapse; margin-top:20px; }
+.schedule th,.schedule td { padding:12px 16px; text-align:left; font-size:.9rem; }
+.schedule th { background:var(--red); color:var(--white); font-weight:600; font-size:.8rem; text-transform:uppercase; letter-spacing:.5px; }
+.schedule th:first-child { border-radius:var(--radius-sm) 0 0 0; }
+.schedule th:last-child { border-radius:0 var(--radius-sm) 0 0; }
+.schedule tr:nth-child(even) { background:var(--gray-50); }
+.schedule td { border-bottom:1px solid var(--gray-200); }
+
+/* CERTS */
+.cert-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin-top:20px; }
+.cert-item { background:var(--white); border:1px solid var(--gray-200); border-radius:var(--radius-sm); padding:22px 18px; display:flex; align-items:flex-start; gap:14px; font-size:.9rem; font-weight:500; box-shadow:var(--shadow); position:relative; overflow:hidden; min-height:156px; }
+.cert-item::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.88) 50%,rgba(255,255,255,.68) 100%); z-index:0; }
+.cert-bg { position:absolute; right:-12px; top:50%; width:170px; height:112px; transform:translateY(-50%); opacity:.15; z-index:0; pointer-events:none; }
+.cert-bg.cnas-bg { right:-18px; width:210px; height:112px; opacity:.18; }
+.cert-item > *:not(.cert-bg) { position:relative; z-index:1; }
+.cert-icon { width:42px; height:42px; border-radius:10px; background:var(--red-pale); color:var(--red); flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+.cert-icon svg { width:26px; height:26px; }
+.cert-icon.cnas { background:#fff; border:1px solid #d8e0ef; }
+.cert-title { display:block; color:var(--navy); font-weight:700; line-height:1.3; }
+.cert-text { display:block; color:var(--gray-600); font-size:.82rem; line-height:1.45; margin-top:4px; font-weight:400; }
+
+/* QUESTIONNAIRE */
+#chestionar { background:var(--white); }
+.form-card { max-width:680px; margin:0 auto; background:var(--off-white); border-radius:var(--radius); padding:36px 32px; border:1px solid var(--gray-200); }
+.form-group { margin-bottom:22px; }
+.form-group label { display:block; font-weight:600; font-size:.9rem; margin-bottom:8px; }
+.form-group .required { color:var(--red); }
+.stars { display:flex; gap:6px; }
+.stars .star { font-size:1.8rem; cursor:pointer; color:var(--gray-200); transition:color .15s,transform .15s; background:none; border:none; padding:0; line-height:1; }
+.stars .star.active { color:var(--accent-gold); }
+.stars .star:hover { transform:scale(1.15); }
+textarea,select,input[type="text"],input[type="email"],input[type="tel"] { width:100%; padding:12px 14px; border:1px solid var(--gray-200); border-radius:var(--radius-sm); font-family:inherit; font-size:.9rem; background:var(--white); transition:border-color .2s; resize:vertical; }
+textarea:focus,select:focus,input:focus { outline:none; border-color:var(--red); }
+.btn { display:inline-flex; align-items:center; gap:8px; background:var(--red); color:var(--white); border:none; border-radius:var(--radius-sm); padding:14px 32px; font-size:.95rem; font-weight:600; cursor:pointer; transition:background .2s,transform .15s; font-family:inherit; }
+.btn:hover { background:var(--red-light); transform:translateY(-1px); }
+.btn:active { transform:translateY(0); }
+.btn[disabled] { opacity:.7; cursor:not-allowed; transform:none; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.form-note { color:var(--gray-600); font-size:.8rem; line-height:1.5; margin:-8px 0 20px; }
+.form-alert { display:none; margin-bottom:18px; padding:12px 14px; border-radius:var(--radius-sm); font-size:.88rem; }
+.form-alert.error { display:block; color:#8b1515; background:var(--red-pale); border:1px solid #f0c6c6; }
+.form-alert.ok { display:block; color:#1b6b48; background:var(--green-bg); border:1px solid #bfe8d2; }
+
+/* REVIEWS */
+.reviews-header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:24px; }
+.semester-label { background:var(--red-pale); color:var(--red); padding:6px 16px; border-radius:100px; font-size:.85rem; font-weight:600; display:inline-flex; align-items:center; gap:6px; }
+.semester-label svg { width:14px; height:14px; }
+.reviews-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; }
+.review-card { background:var(--white); border-radius:var(--radius); padding:24px; border:1px solid var(--gray-200); box-shadow:var(--shadow); }
+.review-stars { color:var(--accent-gold); font-size:1.1rem; margin-bottom:8px; }
+.review-text { font-size:.9rem; color:var(--gray-600); font-style:italic; margin-bottom:12px; }
+.review-meta { font-size:.78rem; color:var(--gray-400); }
+.review-category { display:inline-block; background:var(--gray-100); padding:3px 10px; border-radius:100px; font-size:.75rem; color:var(--gray-600); margin-top:6px; }
+.avg-score { font-family:'Playfair Display',serif; font-size:3rem; font-weight:700; color:var(--red); line-height:1; }
+.avg-label { font-size:.85rem; color:var(--gray-400); }
+.reviews-empty { color:var(--gray-600); background:var(--white); border:1px dashed var(--gray-200); border-radius:var(--radius); padding:24px; text-align:center; }
+
+/* FOOTER */
+footer { background:var(--navy); color:rgba(255,255,255,.7); padding:48px 24px 32px; text-align:center; font-size:.85rem; }
+footer a { color:#e88; text-decoration:none; }
+footer strong { color:var(--white); }
+.footer-logo { display:flex; justify-content:center; margin-bottom:16px; }
+
+/* SUCCESS */
+.success-msg { display:none; text-align:center; padding:40px 20px; }
+.success-msg .check { width:64px; height:64px; border-radius:50%; background:var(--green-bg); color:var(--green-soft); display:inline-flex; align-items:center; justify-content:center; font-size:2rem; margin-bottom:16px; }
+.success-msg h3 { margin-bottom:8px; }
+.success-msg p { color:var(--gray-600); }
+
+/* MOBILE */
+@media (max-width:768px) {
+  .nav-links { display:none; }
+  .nav-links.open { display:flex; flex-direction:column; position:absolute; top:72px; left:0; right:0; background:var(--white); padding:20px 24px; gap:4px; border-bottom:1px solid var(--gray-200); box-shadow:var(--shadow-lg); }
+  .nav-links.open a.active { border-radius:8px; border-bottom:none; border-left:3px solid var(--red); padding-left:12px; }
+  .hamburger { display:flex; }
+  .contact-grid { grid-template-columns:1fr; }
+  .hero { padding:60px 20px 52px; }
+  section { padding:52px 16px; }
+  #despre { padding:52px 16px; }
+  .despre-inner { grid-template-columns:3px 1fr; gap:20px; }
+  .form-card { padding:24px 20px; }
+  .form-row { grid-template-columns:1fr; }
+  .reviews-header { flex-direction:column; text-align:center; }
+  .doctors-grid { grid-template-columns:1fr; }
+  .doctor-card { flex-direction:column; align-items:center; text-align:center; }
+  .hero-cta { flex-direction:column; align-items:center; }
+}
+
+@keyframes fadeUp { from{opacity:.01;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.fade-up { opacity:1; animation:fadeUp .6s ease both; }
+.fade-up:nth-child(2){animation-delay:.1s} .fade-up:nth-child(3){animation-delay:.2s} .fade-up:nth-child(4){animation-delay:.15s} .fade-up:nth-child(5){animation-delay:.25s}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalClinic",
+  "name": "Modern Med Clinic SRL",
+  "url": "https://modernmedclinic.ro",
+  "telephone": "+40733100837",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Bulevardul București nr. 5",
+    "addressLocality": "Focșani",
+    "postalCode": "620144",
+    "addressRegion": "Vrancea",
+    "addressCountry": "RO"
+  },
+  "medicalSpecialty": [
+    "InternalMedicine",
+    "Gastroenterologic",
+    "Gynecologic",
+    "Orthopedic",
+    "Rheumatologic"
+  ],
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "15:30",
+    "closes": "20:30"
+  }]
+}
+</script>
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+  <symbol id="mmc-logo" viewBox="0 0 200 200">
+    <rect x="60" y="10" width="80" height="180" rx="8" fill="#b81c1c"/><rect x="10" y="60" width="180" height="80" rx="8" fill="#b81c1c"/>
+    <rect x="70" y="20" width="60" height="160" rx="4" fill="#fff" opacity=".18"/><rect x="20" y="70" width="160" height="60" rx="4" fill="#fff" opacity=".18"/>
+    <circle cx="100" cy="62" r="18" fill="#fff"/>
+    <path d="M72 95 C72 82,82 76,100 76 C118 76,128 82,128 95 L128 145 C128 150,124 154,119 154 L81 154 C76 154,72 150,72 145Z" fill="#fff"/>
+    <path d="M88 76 L100 105 L112 76" fill="none" stroke="#b81c1c" stroke-width="3" stroke-linecap="round"/>
+    <path d="M82 90 C75 95,68 110,75 125 C80 135,90 132,90 125" fill="none" stroke="#b81c1c" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="90" cy="125" r="4" fill="#b81c1c"/>
+    <path d="M92 76 C88 72,84 74,82 80" fill="none" stroke="#b81c1c" stroke-width="2" stroke-linecap="round"/>
+    <path d="M108 76 C112 72,116 74,118 80" fill="none" stroke="#b81c1c" stroke-width="2" stroke-linecap="round"/>
+    <rect x="96" y="108" width="8" height="16" rx="1.5" fill="#b81c1c"/><rect x="92" y="112" width="16" height="8" rx="1.5" fill="#b81c1c"/>
+  </symbol>
+  <symbol id="icon-cnas" viewBox="0 0 96 48">
+    <rect x="2" y="5" width="92" height="38" rx="6" fill="#ffffff" stroke="#1a3c7d" stroke-width="2"/>
+    <circle cx="22" cy="24" r="13" fill="#1a3c7d"/>
+    <circle cx="22" cy="24" r="9" fill="none" stroke="#c8a415" stroke-width="2"/>
+    <path d="M17 18h7.5c3.1 0 5.5 2.2 5.5 5.1S27.6 28 24.5 28H20v4" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="43" y="22" font-size="13" fill="#1a3c7d" font-weight="800" font-family="Arial, sans-serif">CNAS</text>
+    <text x="43" y="33" font-size="5.4" fill="#1a3c7d" font-weight="700" font-family="Arial, sans-serif">CASA NAȚIONALĂ</text>
+  </symbol>
+  <symbol id="logo-dsp" viewBox="0 0 120 80">
+    <rect x="8" y="8" width="104" height="64" rx="10" fill="#fff" stroke="#b81c1c" stroke-width="4"/>
+    <rect x="52" y="20" width="16" height="40" rx="3" fill="#b81c1c"/>
+    <rect x="40" y="32" width="40" height="16" rx="3" fill="#b81c1c"/>
+    <text x="60" y="68" text-anchor="middle" font-size="15" fill="#b81c1c" font-weight="800" font-family="Arial, sans-serif">DSP</text>
+  </symbol>
+  <symbol id="logo-cmv" viewBox="0 0 120 80">
+    <circle cx="60" cy="38" r="30" fill="#fff" stroke="#b81c1c" stroke-width="4"/>
+    <path d="M44 38c8-16 24-16 32 0M48 46c7 8 17 8 24 0" fill="none" stroke="#b81c1c" stroke-width="4" stroke-linecap="round"/>
+    <path d="M60 18v39M48 28h24" fill="none" stroke="#b81c1c" stroke-width="4" stroke-linecap="round"/>
+    <text x="60" y="76" text-anchor="middle" font-size="13" fill="#b81c1c" font-weight="800" font-family="Arial, sans-serif">CM VRANCEA</text>
+  </symbol>
+  <symbol id="icon-stethoscope" viewBox="0 0 24 24"><path d="M6 3v7c0 3.31 2.69 6 6 6s6-2.69 6-6V3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="4" y1="3" x2="8" y2="3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="16" y1="3" x2="20" y2="3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 16v1c0 2.21-1.79 4-4 4s-4-1.79-4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="20" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="icon-gastro" viewBox="0 0 24 24"><path d="M8 4h3c3 0 5 2 5 5v2c0 2-1 3-3 3h-1c-2 0-3 1-3 3v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 4v4c0 1.5.5 2.5 2 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="9" cy="20" r="1" fill="currentColor"/></symbol>
+  <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="icon-bone" viewBox="0 0 24 24"><path d="M17 8c2-1 3.5-3 2.5-5s-3.5-1-4.5 0c-1-1-3.5-2-4.5 0S12 6 14 7M7 16c-2 1-3.5 3-2.5 5s3.5 1 4.5 0c1 1 3.5 2 4.5 0s-1.5-3-3.5-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><line x1="14" y1="7" x2="10" y2="17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="icon-joint" viewBox="0 0 24 24"><path d="M8 2v6c0 1.1-.9 2-2 2H4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M16 2v6c0 1.1.9 2 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 22v-6c0-1.1-.9-2-2-2H4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M16 22v-6c0-1.1.9-2 2-2h2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="icon-ultrasound" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8c1 2 2 4 3 2s2-4 3-2 1 3 2 1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="17" x2="10" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="14" y1="17" x2="14" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="icon-heartpulse" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 13h2l1-3 2 6 1-3h2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="icon-vessel" viewBox="0 0 24 24"><path d="M12 2v20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 6c0 2 4 2 4 4s-4 2-4 4 4 2 4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16 4c0 2-4 2-4 4s4 2 4 4-4 2-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".5"/></symbol>
+  <symbol id="icon-baby" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 14c0 0-4 1-4 5v1h16v-1c0-4-4-5-4-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="10.5" cy="7.5" r=".8" fill="currentColor"/><circle cx="13.5" cy="7.5" r=".8" fill="currentColor"/><path d="M10.5 9.5c.5.5 2.5.5 3 0" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></symbol>
+  <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="icon-fax" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 10V4h8l4 4v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="15" cy="15" r="1.5" fill="currentColor"/><line x1="8" y1="14" x2="11" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="8" y1="17" x2="11" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="icon-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M22 6l-10 7L2 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="icon-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2 12h20M12 2c3 3.6 3 16.4 0 20M12 2c-3 3.6-3 16.4 0 20" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+  <symbol id="icon-building" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="9" y1="22" x2="9" y2="17" stroke="currentColor" stroke-width="1.8"/><line x1="15" y1="22" x2="15" y2="17" stroke="currentColor" stroke-width="1.8"/><line x1="9" y1="17" x2="15" y2="17" stroke="currentColor" stroke-width="1.8"/><rect x="8" y="6" width="3" height="3" rx=".5" fill="currentColor"/><rect x="13" y="6" width="3" height="3" rx=".5" fill="currentColor"/><rect x="8" y="11" width="3" height="3" rx=".5" fill="currentColor"/><rect x="13" y="11" width="3" height="3" rx=".5" fill="currentColor"/></symbol>
+  <symbol id="icon-clipboard" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="8" y="2" width="8" height="4" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="icon-scan" viewBox="0 0 24 24"><path d="M5 12a7 7 0 0 1 7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M5 5a14 14 0 0 1 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M5 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="currentColor"/></symbol>
+  <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="icon-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 14.5L7 22l5-3 5 3-1.5-7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="1.8"/></symbol>
+</svg>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><svg width="48" height="48"><use href="#mmc-logo"/></svg><div class="logo-text"><span class="t1">Modern Med</span><span class="t2">Clinic</span></div></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#despre" data-section="despre">Despre noi</a></li>
+      <li><a href="#servicii" data-section="servicii">Servicii</a></li>
+      <li><a href="#echipa" data-section="echipa">Echipa</a></li>
+      <li><a href="#program" data-section="program">Program</a></li>
+      <li><a href="#contact" data-section="contact">Contact</a></li>
+      <li><a href="#chestionar" data-section="chestionar">Chestionar</a></li>
+      <li><a href="#recenzii" data-section="recenzii">Recenzii</a></li>
+    </ul>
+    <button class="hamburger" id="menuBtn" aria-label="Meniu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-logo-wrap"><svg width="80" height="80"><use href="#mmc-logo"/></svg></div>
+    <h1>Modern Med Clinic SRL</h1>
+    <p class="hero-desc">Clinica ta medicală din Focșani — consultații de specialitate, ecografii și investigații moderne într-un cadru profesional.</p>
+    <div class="hero-badges">
+      <span class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><use href="#icon-building"/></svg> Contract CNAS Vrancea</span>
+      <span class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><use href="#icon-clipboard"/></svg> Consultații cu și fără bilet</span>
+      <span class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><use href="#icon-scan"/></svg> Ecografie generală, cardiacă & Doppler</span>
+    </div>
+    <div class="hero-cta">
+      <a href="tel:+40733100837" class="hero-btn hero-btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#icon-phone"/></svg> Programări: 0733 100 837 · 0734 264 176</a>
+      <a href="#servicii" class="hero-btn hero-btn-secondary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#icon-clipboard"/></svg> Vezi serviciile</a>
+    </div>
+  </div>
+</header>
+
+<!-- DESPRE NOI -->
+<section id="despre">
+  <div class="despre-inner">
+    <div class="despre-accent"></div>
+    <div class="despre-content">
+      <h2>Despre noi</h2>
+      <p>La <strong>Modern Med Clinic</strong> credem că medicina înseamnă nu doar diagnostic și tratament, ci și atenție, răbdare și încredere. Ne dorim ca fiecare pacient să beneficieze de îngrijire medicală completă, într-un mediu modern, profesionist și apropiat de nevoile sale.</p>
+      <p>În cadrul clinicii oferim consultații și investigații în specialitățile <strong>Medicină Internă</strong>, <strong>Gastroenterologie</strong>, <strong>Obstetrică-Ginecologie</strong>, <strong>Ortopedie-Traumatologie</strong> și <strong>Reumatologie</strong>, printr-o abordare multidisciplinară și personalizată pentru fiecare pacient.</p>
+      <p>Pentru specialitățile Medicină Internă, Gastroenterologie și Obstetrică-Ginecologie, consultațiile se pot efectua și în regim ambulatoriu, pe baza biletului de trimitere de la medicul de familie, prin <strong>Casa de Asigurări de Sănătate</strong>, în limita fondurilor disponibile.</p>
+      <p>Clinica este dotată cu aparatură modernă pentru investigații ecografice complexe, realizând:</p>
+      <ul class="despre-list">
+        <li>Ecografii abdominale și pelvine</li>
+        <li>Ecografii ginecologice și obstetricale</li>
+        <li>Monitorizarea sarcinii și evaluări fetale</li>
+        <li>Ecografii cardiace și vasculare Doppler</li>
+        <li>Ecografii musculoscheletale, de părți moi și sâni</li>
+        <li>Evaluări ecografice dedicate patologiei digestive, reumatologice și endocrine</li>
+      </ul>
+      <div class="despre-highlight">
+        <p>Ne propunem să oferim pacienților acces la servicii medicale moderne, consultații multidisciplinare și investigații de înaltă acuratețe, într-un mediu profesionist, accesibil și orientat către siguranța și confortul fiecărui pacient.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICII -->
+<section id="servicii">
+  <div class="container">
+    <h2 class="section-title">Servicii medicale</h2>
+    <p class="section-sub">Abordare multidisciplinară — consultații de specialitate și investigații ecografice avansate</p>
+
+    <div class="sub-label">Consultații de specialitate</div>
+    <div class="cards" style="margin-bottom:36px;">
+
+      <div class="card fade-up">
+        <div class="card-icon"><svg><use href="#icon-heart"/></svg></div>
+        <div class="card-subtitle">Medicină internă</div>
+        <h3>Medicină Internă</h3>
+        <p>Evaluare clinică completă, diagnostic diferențial, management al bolilor cronice și monitorizare terapeutică.</p>
+        <ul class="card-details">
+          <li>Evaluare cardiovasculară și metabolică</li>
+          <li>Monitorizare HTA și dislipidemie</li>
+          <li>Bilanț pre-operator și evaluări periodice</li>
+        </ul>
+        <span class="tag tag-green"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 12l2 2 4-4"/></svg> Cu bilet de trimitere CAS</span>
+      </div>
+
+      <div class="card fade-up">
+        <div class="card-icon"><svg><use href="#icon-gastro"/></svg></div>
+        <div class="card-subtitle">Gastroenterologie</div>
+        <h3>Gastroenterologie</h3>
+        <p>Diagnostic și tratament al afecțiunilor tractului digestiv, ficatului, pancreasului și căilor biliare.</p>
+        <ul class="card-details">
+          <li>Boală de reflux, gastrite, ulcer</li>
+          <li>Afecțiuni hepatice și pancreatice</li>
+          <li>Sindrom de intestin iritabil, boli inflamatorii</li>
+        </ul>
+        <span class="tag tag-green"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 12l2 2 4-4"/></svg> Cu bilet de trimitere CAS</span>
+      </div>
+
+      <div class="card fade-up">
+        <div class="card-icon"><svg><use href="#icon-stethoscope"/></svg></div>
+        <div class="card-subtitle">Obstetrică & Ginecologie</div>
+        <h3>Obstetrică-Ginecologie</h3>
+        <p>Îngrijire completă pentru sănătatea femeii — de la consultații de rutină la monitorizarea sarcinii.</p>
+        <ul class="card-details">
+          <li>Consultații ginecologice de rutină și patologie</li>
+          <li>Monitorizare sarcină și evaluări prenatale</li>
+          <li>Screening cervical și consiliere contraceptivă</li>
+        </ul>
+        <span class="tag tag-green"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 12l2 2 4-4"/></svg> Cu bilet de trimitere CAS</span>
+      </div>
+
+      <div class="card fade-up">
+        <div class="card-icon"><svg><use href="#icon-joint"/></svg></div>
+        <div class="card-subtitle">Ortopedie</div>
+        <h3>Ortopedie — Traumatologie</h3>
+        <p>Evaluare și tratament al afecțiunilor musculo-scheletale, traumatisme și patologie articulară.</p>
+        <ul class="card-details">
+          <li>Evaluare traumatisme și fracturi</li>
+          <li>Patologie articulară degenerativă</li>
+          <li>Competență în chirurgie artroscopică</li>
+        </ul>
+        <span class="tag tag-amber">Fără bilet de trimitere</span>
+      </div>
+
+      <div class="card fade-up">
+        <div class="card-icon"><svg><use href="#icon-bone"/></svg></div>
+        <div class="card-subtitle">Reumatologie</div>
+        <h3>Reumatologie</h3>
+        <p>Diagnostic și tratament al bolilor reumatice, autoimune, articulare și de țesut conjunctiv.</p>
+        <ul class="card-details">
+          <li>Poliartrită reumatoidă, spondilartrită</li>
+          <li>Lupus, sclerodermie, vasculite</li>
+          <li>Osteoporoză și dureri articulare cronice</li>
+        </ul>
+        <span class="tag tag-amber">Fără bilet de trimitere</span>
+      </div>
+    </div>
+
+    <div class="sub-label">Investigații ecografice</div>
+    <div class="cards">
+      <div class="card fade-up">
+        <div class="card-icon"><svg><use href="#icon-ultrasound"/></svg></div>
+        <h3>Ecografie generală</h3>
+        <p>Ecografie abdominală, pelviană, de părți moi și sâni — evaluare completă a organelor interne.</p>
+        <ul class="card-details">
+          <li>Abdomen superior și inferior</li>
+          <li>Rinichi, vezică, prostată</li>
+          <li>Tiroidă, părți moi, sâni, ganglioni</li>
+        </ul>
+        <span class="tag tag-green"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 12l2 2 4-4"/></svg> Cu bilet de trimitere CAS</span>
+      </div>
+      <div class="card fade-up">
+        <div class="card-icon"><svg><use href="#icon-heartpulse"/></svg></div>
+        <h3>Ecocardiografie</h3>
+        <p>Evaluare ecografică a structurii și funcției cardiace — valve, cavități, funcție sistolică și diastolică.</p>
+        <span class="tag tag-green"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 12l2 2 4-4"/></svg> Cu bilet de trimitere CAS</span>
+      </div>
+      <div class="card fade-up">
+        <div class="card-icon"><svg><use href="#icon-vessel"/></svg></div>
+        <h3>Eco Doppler vascular</h3>
+        <p>Evaluare a circulației arteriale și venoase periferice, depistare tromboze și stenoze vasculare.</p>
+        <span class="tag tag-green"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 12l2 2 4-4"/></svg> Cu bilet de trimitere CAS</span>
+      </div>
+      <div class="card fade-up">
+        <div class="card-icon"><svg><use href="#icon-baby"/></svg></div>
+        <h3>Ecografie OG</h3>
+        <p>Ecografie obstetricală și ginecologică — monitorizare sarcină, evaluări fetale, patologie pelviană.</p>
+        <span class="tag tag-amber">Fără bilet de trimitere</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECHIPA -->
+<section id="echipa" style="background:var(--white);">
+  <div class="container">
+    <h2 class="section-title">Echipa medicală</h2>
+    <p class="section-sub">Medici cu experiență și dedicare pentru sănătatea dumneavoastră</p>
+    <div class="doctors-grid">
+
+      <div class="doctor-card fade-up">
+        <div class="doctor-avatar">PD</div>
+        <div class="doctor-info">
+          <h3>Dr. Popescu Decebal</h3>
+          <div class="title">Medic Primar Medicină Internă<br>Medic Specialist Gastroenterologie</div>
+          <div class="competences">Abordare multidisciplinară — evaluare clinică completă, diagnostic și tratament al afecțiunilor digestive și de medicină internă</div>
+          <a href="tel:+40733100837" class="phone-link"><svg><use href="#icon-phone"/></svg> 0733 100 837</a>
+        </div>
+      </div>
+
+      <div class="doctor-card fade-up">
+        <div class="doctor-avatar">BA</div>
+        <div class="doctor-info">
+          <h3>Dr. Boicu Adrian</h3>
+          <div class="title">Medic Primar Ortopedie-Traumatologie</div>
+          <div class="competences">Competență în chirurgie artroscopică — evaluare traumatisme, patologie articulară degenerativă și sportivă</div>
+          <a href="tel:+40734264176" class="phone-link"><svg><use href="#icon-phone"/></svg> 0734 264 176</a>
+        </div>
+      </div>
+
+      <div class="doctor-card fade-up">
+        <div class="doctor-avatar">MC</div>
+        <div class="doctor-info">
+          <h3>Dr. Maxim Carmina</h3>
+          <div class="title">Medic Specialist Reumatologie<br>Medic Primar Boli Interne</div>
+          <div class="competences">Competențe în ecografie generală și musculoscheletală — diagnostic reumatologic complex, ecografie articulară și de părți moi</div>
+          <a href="tel:+40734264176" class="phone-link"><svg><use href="#icon-phone"/></svg> 0734 264 176</a>
+        </div>
+      </div>
+
+      <div class="doctor-card fade-up">
+        <div class="doctor-avatar">PD</div>
+        <div class="doctor-info">
+          <h3>Dr. Popescu Dragoș</h3>
+          <div class="title">Medic Specialist Obstetrică-Ginecologie</div>
+          <div class="competences">Consultații ginecologice, monitorizarea sarcinii, ecografie obstetricală și ginecologică, screening prenatal</div>
+          <a href="tel:+40734264176" class="phone-link"><svg><use href="#icon-phone"/></svg> 0734 264 176</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title">Contact & Localizare</h2>
+    <p class="section-sub">Ne găsiți pe Bulevardul București, în centrul Focșaniului</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-row"><div class="c-icon"><svg><use href="#icon-pin"/></svg></div><div><div class="label">Adresă</div><div class="value">Bulevardul București nr. 5, Focșani 620144, jud. Vrancea</div></div></div>
+        <div class="contact-row"><div class="c-icon"><svg><use href="#icon-phone"/></svg></div><div><div class="label">Telefon programări</div><div class="value"><a href="tel:+40733100837">0733 100 837</a><span class="value-line"><a href="tel:+40734264176">0734 264 176</a></span></div></div></div>
+        <div class="contact-row"><div class="c-icon"><svg><use href="#icon-mail"/></svg></div><div><div class="label">Email</div><div class="value"><a href="mailto:contact@modernmedclinic.ro">contact@modernmedclinic.ro</a></div></div></div>
+        <div class="contact-row"><div class="c-icon"><svg><use href="#icon-globe"/></svg></div><div><div class="label">CUI / Reg. Com.</div><div class="value">35848675</div></div></div>
+      </div>
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1500!2d27.182893!3d45.682985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b418b7b5b2e779%3A0x171c797862501f51!2sModern%20Med%20Clinic!5e0!3m2!1sro!2sro!4v1700000000000!5m2!1sro!2sro" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <!-- Pin SVG -->
+        <svg class="map-pin" width="48" height="60" viewBox="0 0 48 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 0C10.75 0 0 10.75 0 24c0 18 24 36 24 36s24-18 24-36C48 10.75 37.25 0 24 0z" fill="#b81c1c"/>
+          <circle cx="24" cy="22" r="10" fill="#fff"/>
+          <path d="M20 19v6m0-6h4c1.66 0 3 1.34 3 3s-1.34 3-3 3h-4" stroke="#b81c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="18" y="26" width="12" height="3" rx="1" fill="#b81c1c" opacity=".3"/>
+        </svg>
+        <!-- Click overlay → directions -->
+        <a class="map-overlay" href="https://www.google.com/maps/dir/?api=1&destination=Modern+Med+Clinic,+Bulevardul+Bucuresti+5,+Focsani&destination_place_id=ChIJeeeytLcYtEARUR9iUHh5HBc" target="_blank" rel="noopener">
+          <span class="map-directions-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+            Navighează spre clinică
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM -->
+<section id="program" style="background:var(--white);">
+  <div class="container">
+    <h2 class="section-title">Program de funcționare</h2>
+    <p class="section-sub">Programări telefonice sau la cabinet</p>
+    <div style="max-width:600px;">
+      <table class="schedule">
+        <thead><tr><th>Ziua</th><th>Interval orar</th></tr></thead>
+        <tbody>
+          <tr><td>Luni</td><td>15:30 – 20:30</td></tr>
+          <tr><td>Marți</td><td>15:30 – 20:30</td></tr>
+          <tr><td>Miercuri</td><td>15:30 – 20:30</td></tr>
+          <tr><td>Joi</td><td>15:30 – 20:30</td></tr>
+          <tr><td>Vineri</td><td>15:30 – 20:30</td></tr>
+          <tr><td>Sâmbătă</td><td style="color:var(--red);font-weight:600;">Închis</td></tr>
+          <tr><td>Duminică</td><td style="color:var(--red);font-weight:600;">Închis</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:48px;">
+      <h3 class="section-title" style="font-size:1.4rem;">Calificări, Certificări & Acreditări</h3>
+      <p class="section-sub">Documente și avize esențiale pentru desfășurarea activității medicale</p>
+      <div class="cert-list">
+        <div class="cert-item">
+          <svg class="cert-bg"><use href="#logo-dsp"/></svg>
+          <div class="cert-icon"><svg><use href="#icon-shield"/></svg></div>
+          <div><span class="cert-title">Autorizație sanitară de funcționare</span><span class="cert-text">Emisă de Direcția de Sănătate Publică Vrancea pentru activitatea medicală desfășurată în clinică.</span></div>
+        </div>
+        <div class="cert-item">
+          <svg class="cert-bg"><use href="#logo-cmv"/></svg>
+          <div class="cert-icon"><svg><use href="#icon-award"/></svg></div>
+          <div><span class="cert-title">Aviz Colegiul Medicilor Vrancea</span><span class="cert-text">Avizare a cabinetului medical privind spațiul, specialitățile declarate și existența dotării minime corespunzătoare activităților medicale desfășurate.</span></div>
+        </div>
+        <div class="cert-item">
+          <svg class="cert-bg cnas-bg"><use href="#icon-cnas"/></svg>
+          <div class="cert-icon cnas"><svg width="30" height="20"><use href="#icon-cnas"/></svg></div>
+          <div><span class="cert-title">Furnizor evaluat</span><span class="cert-text">Furnizor de servicii medicale evaluat pentru relația contractuală cu Casa de Asigurări de Sănătate.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHESTIONAR -->
+<section id="chestionar">
+  <div class="container">
+    <h2 class="section-title">Chestionar de satisfacție</h2>
+    <p class="section-sub">Feedback-ul dumneavoastră ne ajută să ne îmbunătățim serviciile. Datele de contact sunt opționale și sunt folosite doar dacă doriți să putem reveni cu un răspuns.</p>
+    <div class="form-card" id="formCard">
+      <div id="formContent">
+        <div class="form-alert" id="formAlert"></div>
+        <div class="form-group"><label>Specialitatea consultată <span class="required">*</span></label><select id="specialty"><option value="">Alegeți specialitatea...</option><option>Medicină Internă</option><option>Gastroenterologie</option><option>Obstetrică-Ginecologie</option><option>Ortopedie-Traumatologie</option><option>Reumatologie</option><option>Ecografie generală</option><option>Ecocardiografie</option><option>Eco Doppler vascular</option><option>Ecografie OG</option><option>Ecografie musculoscheletală</option></select></div>
+        <div class="form-group"><label>Satisfacția generală <span class="required">*</span></label><div class="stars" id="starsGeneral"><button class="star" data-v="1">★</button><button class="star" data-v="2">★</button><button class="star" data-v="3">★</button><button class="star" data-v="4">★</button><button class="star" data-v="5">★</button></div></div>
+        <div class="form-group"><label>Atitudinea personalului medical</label><div class="stars" id="starsStaff"><button class="star" data-v="1">★</button><button class="star" data-v="2">★</button><button class="star" data-v="3">★</button><button class="star" data-v="4">★</button><button class="star" data-v="5">★</button></div></div>
+        <div class="form-group"><label>Timpul de așteptare</label><div class="stars" id="starsWait"><button class="star" data-v="1">★</button><button class="star" data-v="2">★</button><button class="star" data-v="3">★</button><button class="star" data-v="4">★</button><button class="star" data-v="5">★</button></div></div>
+        <div class="form-group"><label>Curățenia și confortul cabinetului</label><div class="stars" id="starsClean"><button class="star" data-v="1">★</button><button class="star" data-v="2">★</button><button class="star" data-v="3">★</button><button class="star" data-v="4">★</button><button class="star" data-v="5">★</button></div></div>
+        <div class="form-group"><label>Comentariu (opțional, poate fi afișat anonim după filtrare)</label><textarea id="comment" rows="4" placeholder="Spuneți-ne experiența dumneavoastră..."></textarea></div>
+        <div class="form-group"><label>Ați recomanda clinica noastră? <span class="required">*</span></label><select id="recommend"><option value="">Alegeți...</option><option>Da, cu siguranță</option><option>Probabil da</option><option>Nu sunt sigur/ă</option><option>Probabil nu</option><option>Nu</option></select></div>
+        <div class="form-row">
+          <div class="form-group"><label>Email (opțional)</label><input id="patientEmail" type="email" placeholder="nume@email.ro"></div>
+          <div class="form-group"><label>Telefon (opțional)</label><input id="patientPhone" type="tel" placeholder="07xx xxx xxx"></div>
+        </div>
+        <p class="form-note">Dacă lăsați email sau telefon, mesajul ajunge la clinică pentru a putea clarifica direct o eventuală nemulțumire. Recenzia publică rămâne anonimă.</p>
+        <button class="btn" id="submitBtn" type="button">Trimite chestionarul <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+      <div class="success-msg" id="successMsg"><div class="check"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/></svg></div><h3>Mulțumim pentru feedback!</h3><p id="successText">Răspunsul dumneavoastră a fost înregistrat și ne va ajuta să ne îmbunătățim serviciile.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RECENZII -->
+<section id="recenzii" style="background:var(--white);">
+  <div class="container">
+    <div class="reviews-header">
+      <div><h2 class="section-title">Ce spun pacienții noștri</h2><p class="section-sub" style="margin-bottom:0;">Comentarii anonime din chestionarele de satisfacție</p></div>
+      <div style="text-align:center;"><div class="avg-score" id="avgScore">—</div><div class="avg-label" id="avgLabel">scor mediu · recenzii aprobate</div><div class="semester-label" style="margin-top:8px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><use href="#icon-calendar"/></svg> Actualizat automat</div></div>
+    </div>
+    <div class="reviews-grid" id="reviewsGrid">
+      <div class="reviews-empty">Recenziile aprobate vor apărea aici după completarea chestionarului.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><svg width="40" height="40"><use href="#mmc-logo"/></svg></div>
+  <div class="container">
+    <p><strong>Modern Med Clinic SRL</strong></p>
+    <p style="margin-top:6px;">Bulevardul București nr. 5, Focșani 620144, Vrancea</p>
+    <p style="margin-top:4px;"><a href="tel:+40733100837">0733 100 837</a> · <a href="tel:+40734264176">0734 264 176</a></p>
+    <p style="margin-top:16px; font-size:.78rem;">© 2026 Modern Med Clinic SRL. Toate drepturile rezervate.</p>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20);});
+document.getElementById('menuBtn').addEventListener('click',()=>{document.getElementById('navLinks').classList.toggle('open');});
+document.querySelectorAll('.nav-links a').forEach(a=>{a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));});
+
+const navLinksAll=document.querySelectorAll('.nav-links a[data-section]');
+const sectionIds=Array.from(navLinksAll).map(a=>a.dataset.section);
+const sections=sectionIds.map(id=>document.getElementById(id)).filter(Boolean);
+function updateActiveNav(){const scrollY=window.scrollY+120;let currentId='';for(let i=sections.length-1;i>=0;i--){if(sections[i].offsetTop<=scrollY){currentId=sections[i].id;break;}}navLinksAll.forEach(link=>{link.classList.toggle('active',link.dataset.section===currentId);});}
+window.addEventListener('scroll',updateActiveNav,{passive:true});
+window.addEventListener('load',updateActiveNav);
+
+const starValues={};
+document.querySelectorAll('.stars').forEach(group=>{const stars=group.querySelectorAll('.star');let val=0;starValues[group.id]=0;stars.forEach(s=>{s.addEventListener('click',()=>{val=parseInt(s.dataset.v,10);starValues[group.id]=val;stars.forEach(st=>st.classList.toggle('active',parseInt(st.dataset.v,10)<=val));});s.addEventListener('mouseenter',()=>{const hv=parseInt(s.dataset.v,10);stars.forEach(st=>st.classList.toggle('active',parseInt(st.dataset.v,10)<=hv));});group.addEventListener('mouseleave',()=>{stars.forEach(st=>st.classList.toggle('active',parseInt(st.dataset.v,10)<=val));});});});
+
+function showFormAlert(type,message){const alert=document.getElementById('formAlert');alert.className='form-alert '+type;alert.textContent=message;}
+function starsText(score){const n=Math.max(0,Math.min(5,Math.round(score||0)));return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n);}
+function escapeHtml(value){return String(value||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
+function formatMonth(dateString){const d=new Date(dateString);return d.toLocaleDateString('ro-RO',{month:'long',year:'numeric'});}
+
+async function loadReviews(){
+  try{
+    const res=await fetch('/api/reviews');
+    if(!res.ok) throw new Error('Nu am putut încărca recenziile.');
+    const data=await res.json();
+    document.getElementById('avgScore').textContent=data.count?Number(data.average).toFixed(1):'—';
+    document.getElementById('avgLabel').textContent=data.count?`scor mediu · ${data.count} recenzii aprobate`:'scor mediu · recenzii aprobate';
+    const grid=document.getElementById('reviewsGrid');
+    if(!data.reviews.length){grid.innerHTML='<div class="reviews-empty">Recenziile aprobate vor apărea aici după completarea chestionarului.</div>';return;}
+    grid.innerHTML=data.reviews.map(r=>`<div class="review-card fade-up"><div class="review-stars">${starsText(r.generalRating)}</div><div class="review-text">„${escapeHtml(r.comment)}”</div><div class="review-meta">Pacient anonim · ${formatMonth(r.createdAt)}</div><div class="review-category">${escapeHtml(r.specialty)}</div></div>`).join('');
+  }catch(err){
+    document.getElementById('reviewsGrid').innerHTML='<div class="reviews-empty">Recenziile nu pot fi încărcate momentan.</div>';
+  }
+}
+
+document.getElementById('submitBtn').addEventListener('click',async()=>{
+  const submitBtn=document.getElementById('submitBtn');
+  const payload={
+    specialty:document.getElementById('specialty').value,
+    generalRating:starValues.starsGeneral||0,
+    staffRating:starValues.starsStaff||0,
+    waitRating:starValues.starsWait||0,
+    cleanRating:starValues.starsClean||0,
+    comment:document.getElementById('comment').value.trim(),
+    recommend:document.getElementById('recommend').value,
+    patientEmail:document.getElementById('patientEmail').value.trim(),
+    patientPhone:document.getElementById('patientPhone').value.trim()
+  };
+  if(!payload.specialty||payload.generalRating===0||!payload.recommend){showFormAlert('error','Vă rugăm completați câmpurile obligatorii.');return;}
+  submitBtn.disabled=true;
+  submitBtn.textContent='Se trimite...';
+  try{
+    const res=await fetch('/api/reviews',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||'Nu am putut trimite chestionarul.');
+    document.getElementById('formContent').style.display='none';
+    document.getElementById('successText').textContent=data.status==='pending'?'Răspunsul a fost înregistrat. Comentariul va fi verificat înainte de afișare.':'Răspunsul a fost înregistrat. Vă mulțumim pentru feedback.';
+    const msg=document.getElementById('successMsg');
+    msg.style.display='block';
+    msg.style.animation='fadeUp .5s ease forwards';
+    await loadReviews();
+  }catch(err){
+    showFormAlert('error',err.message);
+    submitBtn.disabled=false;
+    submitBtn.innerHTML='Trimite chestionarul <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+  }
+});
+
+loadReviews();
+</script>
+</body>
+</html>
