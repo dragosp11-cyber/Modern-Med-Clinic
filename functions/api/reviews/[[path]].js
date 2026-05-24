@@ -14,7 +14,11 @@ const AGGRESSIVE_PATTERNS = [
   /nesimtit/i
 ];
 
-const DEFAULT_ADMIN_PASSWORD = 'modern2026';
+const ADMIN_SESSION_SECONDS = 8 * 60 * 60;
+const ADMIN_MAX_LOGIN_ATTEMPTS = 6;
+const ADMIN_LOCK_SECONDS = 15 * 60;
+const MAX_ATTACHMENT_COUNT = 5;
+const MAX_ATTACHMENT_TOTAL_BYTES = 8 * 1024 * 1024;
 
 function json(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -32,6 +36,27 @@ function html(body, status = 200) {
 
 function cleanText(value, limit = 2000) {
   return String(value || '').trim().slice(0, limit);
+}
+
+function base64UrlEncode(value) {
+  const raw = typeof value === 'string'
+    ? btoa(value)
+    : btoa(String.fromCharCode(...new Uint8Array(value)));
+  return raw.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+function base64UrlDecode(value) {
+  const base64 = String(value || '').replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(String(value || '').length / 4) * 4, '=');
+  return atob(base64);
+}
+
+function timingSafeEqual(a, b) {
+  const left = String(a || '');
+  const right = String(b || '');
+  if (left.length !== right.length) return false;
+  let result = 0;
+  for (let i = 0; i < left.length; i += 1) result |= left.charCodeAt(i) ^ right.charCodeAt(i);
+  return result === 0;
 }
 
 function isEmail(value) {
@@ -110,11 +135,61 @@ function adminReview(review) {
   };
 }
 
-function isAdmin(request, env) {
-  const password = env.ADMIN_PASSWORD || DEFAULT_ADMIN_PASSWORD;
-  if (!password) return false;
+function getAdminPassword(env) {
+  return env.ADMIN_PASSWORD || '';
+}
+
+function clientIp(request) {
+  return request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+}
+
+async function signAdminPayload(env, payload) {
+  const secret = getAdminPassword(env);
+  if (!secret) throw new Error('ADMIN_PASSWORD nu este configurat.');
+  const encodedPayload = base64UrlEncode(JSON.stringify(payload));
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const signature = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(encodedPayload));
+  return `${encodedPayload}.${base64UrlEncode(signature)}`;
+}
+
+async function verifyAdminToken(env, token) {
+  try {
+    const secret = getAdminPassword(env);
+    if (!secret || !token || !token.includes('.')) return false;
+    const [encodedPayload, signature] = token.split('.');
+    const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+    const expected = base64UrlEncode(await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(encodedPayload)));
+    if (!timingSafeEqual(signature, expected)) return false;
+    const payload = JSON.parse(base64UrlDecode(encodedPayload));
+    return payload.scope === 'admin' && Number(payload.exp) > Math.floor(Date.now() / 1000);
+  } catch {
+    return false;
+  }
+}
+
+async function isAdmin(request, env) {
   const header = request.headers.get('authorization') || '';
-  return header === `Bearer ${password}`;
+  const token = header.startsWith('Bearer ') ? header.slice(7) : '';
+  return await verifyAdminToken(env, token);
+}
+
+async function getLoginState(env, request) {
+  if (!env.REVIEWS_KV) return { key: '', attempts: 0, lockedUntil: 0 };
+  const key = `admin-login:${clientIp(request)}`;
+  const state = await env.REVIEWS_KV.get(key, { type: 'json' }) || { attempts: 0, lockedUntil: 0 };
+  return { key, attempts: Number(state.attempts || 0), lockedUntil: Number(state.lockedUntil || 0) };
+}
+
+async function registerFailedLogin(env, state) {
+  if (!env.REVIEWS_KV || !state.key) return;
+  const attempts = state.attempts + 1;
+  const lockedUntil = attempts >= ADMIN_MAX_LOGIN_ATTEMPTS ? Date.now() + ADMIN_LOCK_SECONDS * 1000 : 0;
+  await env.REVIEWS_KV.put(state.key, JSON.stringify({ attempts, lockedUntil }), { expirationTtl: ADMIN_LOCK_SECONDS });
+}
+
+async function resetFailedLogin(env, state) {
+  if (!env.REVIEWS_KV || !state.key) return;
+  await env.REVIEWS_KV.delete(state.key);
 }
 
 function emailHtml(review, title, approvalLinks) {
@@ -164,12 +239,17 @@ async function sendAdminEmail(env, payload) {
   const subject = cleanText(payload.subject, 180);
   const htmlBody = cleanText(payload.html, 12000);
   const textBody = cleanText(payload.text, 12000);
+  const rawAttachments = Array.isArray(payload.attachments) ? payload.attachments : [];
+  const attachments = rawAttachments.slice(0, MAX_ATTACHMENT_COUNT);
+  const totalAttachmentBytes = attachments.reduce((sum, file) => sum + Math.ceil(String(file.content || '').length * 3 / 4), 0);
 
   if (!allowedSenders.includes(fromAddress)) throw new Error('Alegeți o adresă de expeditor validă.');
   if (!to.length) throw new Error('Completați cel puțin un destinatar.');
   if ([...to, ...cc, ...bcc].some(email => !isEmail(email))) throw new Error('Una dintre adresele de email nu pare validă.');
   if (!subject) throw new Error('Completați subiectul emailului.');
   if (!htmlBody && !textBody) throw new Error('Completați mesajul emailului.');
+  if (rawAttachments.length > MAX_ATTACHMENT_COUNT) throw new Error('Puteți atașa maximum 5 fișiere.');
+  if (totalAttachmentBytes > MAX_ATTACHMENT_TOTAL_BYTES) throw new Error('Atașamentele depășesc limita totală de 8 MB.');
 
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -185,7 +265,13 @@ async function sendAdminEmail(env, payload) {
       reply_to: fromAddress,
       subject,
       html: htmlBody || `<p>${escapeHtml(textBody).replace(/\n/g, '<br>')}</p>`,
-      text: textBody || undefined
+      text: textBody || undefined,
+      attachments: attachments.length
+        ? attachments.map(file => ({
+            filename: cleanText(file.filename, 160) || 'atasament',
+            content: String(file.content || '')
+          }))
+        : undefined
     })
   });
 
@@ -281,7 +367,7 @@ async function handleModeration(request, env, pathParts) {
 }
 
 async function handleAdminList(request, env) {
-  if (!isAdmin(request, env)) return json({ error: 'Acces neautorizat.' }, 401);
+  if (!await isAdmin(request, env)) return json({ error: 'Acces neautorizat.' }, 401);
   const reviews = await getReviews(env);
   const sorted = reviews
     .map(adminReview)
@@ -290,7 +376,7 @@ async function handleAdminList(request, env) {
 }
 
 async function handleAdminAction(request, env, pathParts) {
-  if (!isAdmin(request, env)) return json({ error: 'Acces neautorizat.' }, 401);
+  if (!await isAdmin(request, env)) return json({ error: 'Acces neautorizat.' }, 401);
   const [, id, action] = pathParts;
   if (!id || !['approve', 'reject', 'delete'].includes(action)) return json({ error: 'Not found' }, 404);
   const reviews = await getReviews(env);
@@ -308,10 +394,32 @@ async function handleAdminAction(request, env, pathParts) {
 }
 
 async function handleAdminSendEmail(request, env) {
-  if (!isAdmin(request, env)) return json({ error: 'Acces neautorizat.' }, 401);
+  if (!await isAdmin(request, env)) return json({ error: 'Acces neautorizat.' }, 401);
   const body = await request.json();
   const result = await sendAdminEmail(env, body);
   return json({ ok: true, id: result.id || null });
+}
+
+async function handleAdminLogin(request, env) {
+  const password = getAdminPassword(env);
+  if (!password) return json({ error: 'ADMIN_PASSWORD nu este configurat.' }, 503);
+
+  const state = await getLoginState(env, request);
+  if (state.lockedUntil && state.lockedUntil > Date.now()) {
+    const minutes = Math.ceil((state.lockedUntil - Date.now()) / 60000);
+    return json({ error: `Prea multe încercări greșite. Încercați din nou peste ${minutes} minute.` }, 429);
+  }
+
+  const body = await request.json().catch(() => ({}));
+  if (!timingSafeEqual(cleanText(body.password, 200), password)) {
+    await registerFailedLogin(env, state);
+    return json({ error: 'Parolă incorectă.' }, 401);
+  }
+
+  await resetFailedLogin(env, state);
+  const now = Math.floor(Date.now() / 1000);
+  const token = await signAdminPayload(env, { scope: 'admin', iat: now, exp: now + ADMIN_SESSION_SECONDS });
+  return json({ ok: true, token, expiresIn: ADMIN_SESSION_SECONDS });
 }
 
 export async function onRequest(context) {
@@ -319,6 +427,7 @@ export async function onRequest(context) {
   const path = params.path || [];
 
   try {
+    if (request.method === 'POST' && path.length === 2 && path[0] === 'admin' && path[1] === 'login') return await handleAdminLogin(request, env);
     if (request.method === 'GET' && path.length === 1 && path[0] === 'admin') return await handleAdminList(request, env);
     if (request.method === 'POST' && path.length === 3 && path[0] === 'admin' && path[1] === 'email' && path[2] === 'send') return await handleAdminSendEmail(request, env);
     if (request.method === 'POST' && path.length === 3 && path[0] === 'admin') return await handleAdminAction(request, env, path);
