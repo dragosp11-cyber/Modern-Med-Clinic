@@ -14,6 +14,8 @@ const AGGRESSIVE_PATTERNS = [
   /nesimtit/i
 ];
 
+const DEFAULT_ADMIN_PASSWORD = 'modern2026';
+
 function json(body, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
@@ -102,7 +104,7 @@ function adminReview(review) {
 }
 
 function isAdmin(request, env) {
-  const password = env.ADMIN_PASSWORD;
+  const password = env.ADMIN_PASSWORD || DEFAULT_ADMIN_PASSWORD;
   if (!password) return false;
   const header = request.headers.get('authorization') || '';
   return header === `Bearer ${password}`;
