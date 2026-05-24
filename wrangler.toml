@@ -9,4 +9,3 @@ id = "57b52c32ccc3451c94ef320f7cbfce35"
 [vars]
 REVIEW_TO = "contact@modernmedclinic.ro"
 MAIL_FROM = "Modern Med Clinic <contact@modernmedclinic.ro>"
-ADMIN_PASSWORD = "modern2026"
