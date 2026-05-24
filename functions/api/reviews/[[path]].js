@@ -38,6 +38,13 @@ function isEmail(value) {
   return !value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+function parseEmailList(value) {
+  return String(value || '')
+    .split(/[;,\s]+/)
+    .map(item => item.trim())
+    .filter(Boolean);
+}
+
 function isPhone(value) {
   return !value || /^[0-9+\s().-]{7,24}$/.test(value);
 }
@@ -144,6 +151,47 @@ async function sendEmail(env, subject, body) {
     body: JSON.stringify({ from, to: [to], subject, html: body })
   });
   if (!response.ok) throw new Error(`Email provider error: ${response.status}`);
+}
+
+async function sendAdminEmail(env, payload) {
+  if (!env.RESEND_API_KEY) throw new Error('RESEND_API_KEY nu este configurat.');
+
+  const allowedSenders = ['contact@modernmedclinic.ro', 'programari@modernmedclinic.ro'];
+  const fromAddress = cleanText(payload.from, 120);
+  const to = parseEmailList(payload.to);
+  const cc = parseEmailList(payload.cc);
+  const bcc = parseEmailList(payload.bcc);
+  const subject = cleanText(payload.subject, 180);
+  const htmlBody = cleanText(payload.html, 12000);
+  const textBody = cleanText(payload.text, 12000);
+
+  if (!allowedSenders.includes(fromAddress)) throw new Error('Alegeți o adresă de expeditor validă.');
+  if (!to.length) throw new Error('Completați cel puțin un destinatar.');
+  if ([...to, ...cc, ...bcc].some(email => !isEmail(email))) throw new Error('Una dintre adresele de email nu pare validă.');
+  if (!subject) throw new Error('Completați subiectul emailului.');
+  if (!htmlBody && !textBody) throw new Error('Completați mesajul emailului.');
+
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${env.RESEND_API_KEY}`,
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      from: `Modern Med Clinic <${fromAddress}>`,
+      to,
+      cc: cc.length ? cc : undefined,
+      bcc: bcc.length ? bcc : undefined,
+      reply_to: fromAddress,
+      subject,
+      html: htmlBody || `<p>${escapeHtml(textBody).replace(/\n/g, '<br>')}</p>`,
+      text: textBody || undefined
+    })
+  });
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.message || `Email provider error: ${response.status}`);
+  return data;
 }
 
 async function trySendEmail(env, subject, body) {
@@ -259,12 +307,20 @@ async function handleAdminAction(request, env, pathParts) {
   return json({ ok: true, action, review: adminReview(review) });
 }
 
+async function handleAdminSendEmail(request, env) {
+  if (!isAdmin(request, env)) return json({ error: 'Acces neautorizat.' }, 401);
+  const body = await request.json();
+  const result = await sendAdminEmail(env, body);
+  return json({ ok: true, id: result.id || null });
+}
+
 export async function onRequest(context) {
   const { request, env, params } = context;
   const path = params.path || [];
 
   try {
     if (request.method === 'GET' && path.length === 1 && path[0] === 'admin') return await handleAdminList(request, env);
+    if (request.method === 'POST' && path.length === 3 && path[0] === 'admin' && path[1] === 'email' && path[2] === 'send') return await handleAdminSendEmail(request, env);
     if (request.method === 'POST' && path.length === 3 && path[0] === 'admin') return await handleAdminAction(request, env, path);
     if (request.method === 'GET' && path.length === 0) return await handleList(env);
     if (request.method === 'POST' && path.length === 0) return await handleCreate(request, env);
