@@ -242,6 +242,13 @@ footer strong { color:var(--white); }
 .cookie-actions .accept { background:var(--red); color:#fff; }
 .cookie-actions .decline { background:var(--gray-100); color:var(--gray-500); }
 .google-review-link { display:inline-flex; align-items:center; justify-content:center; margin-top:18px; padding:12px 18px; border-radius:8px; background:var(--navy); color:#fff; text-decoration:none; font-weight:700; }
+.seo-faq { background:var(--white); }
+.faq-grid { display:grid; gap:14px; max-width:900px; }
+.faq-item { background:var(--off-white); border:1px solid var(--gray-200); border-radius:var(--radius); padding:20px 22px; }
+.faq-item h3 { font-size:1rem; color:var(--navy); margin-bottom:6px; }
+.faq-item p { color:var(--gray-600); font-size:.92rem; }
+.maps-profile-link { display:inline-flex; margin-top:10px; color:var(--red); font-weight:700; text-decoration:none; }
+.maps-profile-link:hover { text-decoration:underline; }
 
 /* SUCCESS */
 .success-msg { display:none; text-align:center; padding:40px 20px; }
@@ -281,6 +288,7 @@ footer strong { color:var(--white); }
   "@type": "MedicalClinic",
   "@id": "https://modernmedclinic.ro/#clinic",
   "name": "Modern Med Clinic SRL",
+  "alternateName": ["Modern Med Clinic", "Clinica Modern Med Focșani"],
   "legalName": "Modern Med Clinic SRL",
   "url": "https://modernmedclinic.ro",
   "image": "https://modernmedclinic.ro/assets/og-image.svg",
@@ -288,7 +296,13 @@ footer strong { color:var(--white); }
   "telephone": ["+40733100837", "+40734264176"],
   "email": "contact@modernmedclinic.ro",
   "priceRange": "$$",
-  "vatID": "35848675",
+  "vatID": "RO35848675",
+  "taxID": "35848675",
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "CUI",
+    "value": "35848675"
+  },
   "description": "Modern Med Clinic SRL oferă consultații de specialitate și investigații ecografice în Focșani, Vrancea.",
   "address": {
     "@type": "PostalAddress",
@@ -305,7 +319,7 @@ footer strong { color:var(--white); }
     "Orthopedic",
     "Rheumatologic"
   ],
-  "hasMap": "https://www.google.com/maps/dir/?api=1&destination=Modern+Med+Clinic,+Bulevardul+Bucuresti+5,+Focsani",
+  "hasMap": "https://www.google.com/maps/search/?api=1&query=Modern%20Med%20Clinic%20Foc%C8%99ani&query_place_id=ChIJeeeytLcYtEARUR9iUHh5HBc",
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": 45.682985,
@@ -358,7 +372,63 @@ footer strong { color:var(--white); }
     "closes": "20:30"
   }],
   "sameAs": [
-    "https://www.google.com/maps/search/?api=1&query=Modern+Med+Clinic+Focsani"
+    "https://www.google.com/maps/search/?api=1&query=Modern%20Med%20Clinic%20Foc%C8%99ani&query_place_id=ChIJeeeytLcYtEARUR9iUHh5HBc"
+  ],
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+40733100837",
+      "contactType": "programări",
+      "areaServed": "RO",
+      "availableLanguage": ["ro"]
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+40734264176",
+      "contactType": "programări",
+      "areaServed": "RO",
+      "availableLanguage": ["ro"]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Unde se află Modern Med Clinic în Focșani?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Modern Med Clinic se află pe Bulevardul București nr. 5, Focșani 620144, județul Vrancea."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ce specialități medicale sunt disponibile la Modern Med Clinic?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Clinica oferă consultații de medicină internă, gastroenterologie, obstetrică-ginecologie, ortopedie-traumatologie, reumatologie și investigații ecografice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Cum pot face o programare?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Programările se pot face telefonic la 0733 100 837 sau 0734 264 176."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Se pot efectua consultații cu bilet de trimitere CAS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Unele servicii pot fi disponibile cu bilet de trimitere CAS, în limita fondurilor disponibile și a contractului aplicabil."
+      }
+    }
   ]
 }
 </script>
@@ -709,6 +779,7 @@ footer strong { color:var(--white); }
         <div class="contact-row"><div class="c-icon"><svg><use href="#icon-phone"/></svg></div><div><div class="label">Telefon programări</div><div class="value"><a href="tel:+40733100837">0733 100 837</a><span class="value-line"><a href="tel:+40734264176">0734 264 176</a></span></div></div></div>
         <div class="contact-row"><div class="c-icon"><svg><use href="#icon-mail"/></svg></div><div><div class="label">Email</div><div class="value"><a href="mailto:contact@modernmedclinic.ro">contact@modernmedclinic.ro</a></div></div></div>
         <div class="contact-row"><div class="c-icon"><svg><use href="#icon-globe"/></svg></div><div><div class="label">CUI / Reg. Com.</div><div class="value">35848675</div></div></div>
+        <div class="contact-row"><div class="c-icon"><svg><use href="#icon-pin"/></svg></div><div><div class="label">Google Maps</div><div class="value"><a href="https://www.google.com/maps/search/?api=1&query=Modern%20Med%20Clinic%20Foc%C8%99ani&query_place_id=ChIJeeeytLcYtEARUR9iUHh5HBc" target="_blank" rel="noopener">Vezi profilul clinicii pe Google Maps</a></div></div></div>
       </div>
       <div class="map-wrap">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1500!2d27.182893!3d45.682985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b418b7b5b2e779%3A0x171c797862501f51!2sModern%20Med%20Clinic!5e0!3m2!1sro!2sro!4v1700000000000!5m2!1sro!2sro" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -772,6 +843,20 @@ footer strong { color:var(--white); }
     </div>
     <div class="reviews-grid" id="reviewsGrid">
       <div class="reviews-empty"><strong>Nu sunt încă recenzii publicate.</strong>Primele comentarii aprobate vor apărea aici după completarea chestionarului.<br><a href="#chestionar">Lasă feedback anonim</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- INTREBARI FRECVENTE -->
+<section class="seo-faq" id="intrebari">
+  <div class="container">
+    <h2 class="section-title">Întrebări frecvente despre Modern Med Clinic Focșani</h2>
+    <p class="section-sub">Informații utile pentru pacienții care caută consultații medicale și ecografii în Focșani, Vrancea.</p>
+    <div class="faq-grid">
+      <div class="faq-item"><h3>Unde se află Modern Med Clinic?</h3><p>Clinica se află pe Bulevardul București nr. 5, Focșani 620144, județul Vrancea, cu acces facil din zona centrală a orașului.</p></div>
+      <div class="faq-item"><h3>Ce specialități sunt disponibile?</h3><p>Serviciile includ medicină internă, gastroenterologie, obstetrică-ginecologie, ortopedie-traumatologie, reumatologie și ecografii.</p></div>
+      <div class="faq-item"><h3>Cum se fac programările?</h3><p>Programările se fac telefonic la <a href="tel:+40733100837">0733 100 837</a> sau <a href="tel:+40734264176">0734 264 176</a>.</p></div>
+      <div class="faq-item"><h3>Există consultații prin CAS?</h3><p>Unele servicii pot fi disponibile cu bilet de trimitere CAS, în limita fondurilor disponibile și a contractului aplicabil.</p></div>
     </div>
   </div>
 </section>
