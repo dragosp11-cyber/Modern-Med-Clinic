@@ -83,6 +83,31 @@ function publicReview(review) {
   };
 }
 
+function adminReview(review) {
+  return {
+    id: review.id,
+    specialty: review.specialty,
+    generalRating: review.generalRating,
+    staffRating: review.staffRating || 0,
+    waitRating: review.waitRating || 0,
+    cleanRating: review.cleanRating || 0,
+    comment: review.comment,
+    recommend: review.recommend,
+    patientEmail: review.patientEmail,
+    patientPhone: review.patientPhone,
+    createdAt: review.createdAt,
+    status: review.status,
+    moderationReasons: review.moderationReasons || []
+  };
+}
+
+function isAdmin(request, env) {
+  const password = env.ADMIN_PASSWORD;
+  if (!password) return false;
+  const header = request.headers.get('authorization') || '';
+  return header === `Bearer ${password}`;
+}
+
 function emailHtml(review, title, approvalLinks) {
   const ratings = [
     ['Satisfacție generală', review.generalRating],
@@ -205,11 +230,40 @@ async function handleModeration(request, env, pathParts) {
   return html(`<h1>${action === 'approve' ? 'Recenzia a fost aprobată' : 'Recenzia a fost ștearsă/respinsă'}</h1><p>Puteți închide această pagină.</p>`);
 }
 
+async function handleAdminList(request, env) {
+  if (!isAdmin(request, env)) return json({ error: 'Acces neautorizat.' }, 401);
+  const reviews = await getReviews(env);
+  const sorted = reviews
+    .map(adminReview)
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  return json({ count: sorted.length, reviews: sorted });
+}
+
+async function handleAdminAction(request, env, pathParts) {
+  if (!isAdmin(request, env)) return json({ error: 'Acces neautorizat.' }, 401);
+  const [, id, action] = pathParts;
+  if (!id || !['approve', 'reject', 'delete'].includes(action)) return json({ error: 'Not found' }, 404);
+  const reviews = await getReviews(env);
+  const index = reviews.findIndex(item => item.id === id);
+  if (index === -1) return json({ error: 'Recenzia nu există.' }, 404);
+  const review = reviews[index];
+  if (action === 'delete') {
+    reviews.splice(index, 1);
+  } else {
+    review.status = action === 'approve' ? 'approved' : 'rejected';
+    review.moderatedAt = new Date().toISOString();
+  }
+  await saveReviews(env, reviews);
+  return json({ ok: true, action, review: adminReview(review) });
+}
+
 export async function onRequest(context) {
   const { request, env, params } = context;
   const path = params.path || [];
 
   try {
+    if (request.method === 'GET' && path.length === 1 && path[0] === 'admin') return await handleAdminList(request, env);
+    if (request.method === 'POST' && path.length === 3 && path[0] === 'admin') return await handleAdminAction(request, env, path);
     if (request.method === 'GET' && path.length === 0) return await handleList(env);
     if (request.method === 'POST' && path.length === 0) return await handleCreate(request, env);
     if (request.method === 'GET' && path.length === 2) return await handleModeration(request, env, path);

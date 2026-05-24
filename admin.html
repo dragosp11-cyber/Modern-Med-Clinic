@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin recenzii | Modern Med Clinic</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#faf8f8;color:#1a1f2e;line-height:1.5}.wrap{max-width:1120px;margin:0 auto;padding:28px 18px 60px}header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}h1{font-family:Georgia,serif;color:#b81c1c;margin:0;font-size:2rem}.muted{color:#6b5e5e}.login,.toolbar,.card{background:#fff;border:1px solid #e4dcdc;border-radius:12px;box-shadow:0 2px 20px rgba(184,28,28,.06)}.login{max-width:420px;margin:80px auto;padding:26px}.toolbar{padding:14px 16px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px}.card{padding:18px;display:flex;flex-direction:column;gap:14px}.top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.spec{font-weight:700}.date{font-size:.82rem;color:#9a8e8e}.status{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;padding:4px 9px;border-radius:999px;font-weight:700}.approved{background:#e6f7ee;color:#1f7a4f}.pending{background:#fef3e0;color:#9a6500}.rejected{background:#f2eded;color:#6b5e5e}.score{display:flex;gap:8px;flex-wrap:wrap;font-size:.86rem;color:#6b5e5e}.score b{color:#b81c1c}.comment{font-style:italic;color:#3a3140;background:#faf8f8;border-radius:8px;padding:12px}.contact{font-size:.86rem;color:#6b5e5e}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}button{border:0;border-radius:8px;padding:10px 13px;font-weight:700;cursor:pointer;background:#b81c1c;color:#fff}button:hover{background:#d42b2b}button.secondary{background:#1a1f2e}button.light{background:#f2eded;color:#1a1f2e}button.ok{background:#2d9d6a}input,select{width:100%;padding:12px 13px;border:1px solid #e4dcdc;border-radius:8px;font-size:.95rem}label{display:block;font-weight:700;margin-bottom:8px}.row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}.empty{background:#fff;border:1px dashed #e4dcdc;border-radius:12px;padding:28px;text-align:center;color:#6b5e5e}.error{background:#fdf0f0;color:#8b1515;border:1px solid #f0c6c6;border-radius:8px;padding:10px 12px;margin-top:12px;display:none}@media(max-width:640px){header,.toolbar{align-items:flex-start;flex-direction:column}.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="login" id="login">
+    <h1>Admin recenzii</h1>
+    <p class="muted">Introduceți parola pentru acces la recenziile primite.</p>
+    <div class="row">
+      <div><label for="password">Parolă</label><input id="password" type="password" autocomplete="current-password"></div>
+      <button id="loginBtn" type="button">Intră</button>
+    </div>
+    <div class="error" id="loginError"></div>
+  </section>
+
+  <section id="app" style="display:none">
+    <header>
+      <div>
+        <h1>Recenzii</h1>
+        <div class="muted" id="countLabel">Se încarcă...</div>
+      </div>
+      <button class="light" id="logoutBtn" type="button">Ieșire</button>
+    </header>
+    <div class="toolbar">
+      <select id="statusFilter" aria-label="Filtru status">
+        <option value="all">Toate statusurile</option>
+        <option value="pending">Pending</option>
+        <option value="approved">Aprobate</option>
+        <option value="rejected">Respinse</option>
+      </select>
+      <button class="secondary" id="refreshBtn" type="button">Reîncarcă</button>
+    </div>
+    <div class="grid" id="reviews"></div>
+  </section>
+</main>
+<script>
+const state={password:localStorage.getItem('mmcAdminPassword')||'',reviews:[]};
+const login=document.getElementById('login');
+const app=document.getElementById('app');
+const password=document.getElementById('password');
+const loginError=document.getElementById('loginError');
+const reviewsEl=document.getElementById('reviews');
+const countLabel=document.getElementById('countLabel');
+const statusFilter=document.getElementById('statusFilter');
+
+function escapeHtml(value){return String(value||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
+function dateText(value){return new Date(value).toLocaleString('ro-RO',{dateStyle:'medium',timeStyle:'short'});}
+function stars(n){return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n);}
+function authHeaders(){return {Authorization:'Bearer '+state.password};}
+function showLoginError(message){loginError.textContent=message;loginError.style.display='block';}
+
+async function api(path, options={}){
+  const res=await fetch(path,{...options,headers:{...authHeaders(),...(options.headers||{})}});
+  const data=await res.json().catch(()=>({}));
+  if(!res.ok) throw new Error(data.error||'A apărut o eroare.');
+  return data;
+}
+
+function render(){
+  const filter=statusFilter.value;
+  const items=state.reviews.filter(r=>filter==='all'||r.status===filter);
+  countLabel.textContent=`${state.reviews.length} recenzii în total`;
+  if(!items.length){reviewsEl.innerHTML='<div class="empty">Nu există recenzii pentru filtrul ales.</div>';return;}
+  reviewsEl.innerHTML=items.map(r=>`<article class="card">
+    <div class="top"><div><div class="spec">${escapeHtml(r.specialty)}</div><div class="date">${dateText(r.createdAt)}</div></div><span class="status ${escapeHtml(r.status)}">${escapeHtml(r.status)}</span></div>
+    <div class="score"><span><b>${r.generalRating}/5</b> ${stars(r.generalRating)}</span><span>Personal: ${r.staffRating||'-'}/5</span><span>Așteptare: ${r.waitRating||'-'}/5</span><span>Curățenie: ${r.cleanRating||'-'}/5</span></div>
+    <div class="comment">${r.comment?`„${escapeHtml(r.comment)}”`:'Fără comentariu scris.'}</div>
+    <div class="contact">Recomandare: ${escapeHtml(r.recommend||'-')}<br>Email: ${escapeHtml(r.patientEmail||'-')}<br>Telefon: ${escapeHtml(r.patientPhone||'-')}<br>Filtru: ${escapeHtml((r.moderationReasons||[]).join(', ')||'-')}</div>
+    <div class="actions">
+      ${r.status!=='approved'?`<button class="ok" data-action="approve" data-id="${r.id}" type="button">Aprobă</button>`:''}
+      ${r.status!=='rejected'?`<button class="secondary" data-action="reject" data-id="${r.id}" type="button">Respinge</button>`:''}
+      <button data-action="delete" data-id="${r.id}" type="button">Șterge</button>
+    </div>
+  </article>`).join('');
+}
+
+async function load(){
+  const data=await api('/api/reviews/admin');
+  state.reviews=data.reviews||[];
+  render();
+}
+
+async function loginNow(){
+  state.password=password.value.trim();
+  if(!state.password){showLoginError('Introduceți parola.');return;}
+  try{
+    await load();
+    localStorage.setItem('mmcAdminPassword',state.password);
+    login.style.display='none';
+    app.style.display='block';
+  }catch(err){showLoginError(err.message);}
+}
+
+document.getElementById('loginBtn').addEventListener('click',loginNow);
+password.addEventListener('keydown',event=>{if(event.key==='Enter')loginNow();});
+document.getElementById('logoutBtn').addEventListener('click',()=>{localStorage.removeItem('mmcAdminPassword');location.reload();});
+document.getElementById('refreshBtn').addEventListener('click',load);
+statusFilter.addEventListener('change',render);
+reviewsEl.addEventListener('click',async event=>{
+  const btn=event.target.closest('button[data-action]');
+  if(!btn)return;
+  if(btn.dataset.action==='delete'&&!confirm('Ștergi definitiv această recenzie?'))return;
+  btn.disabled=true;
+  try{await api(`/api/reviews/admin/${btn.dataset.id}/${btn.dataset.action}`,{method:'POST'});await load();}
+  catch(err){alert(err.message);btn.disabled=false;}
+});
+
+if(state.password){password.value=state.password;loginNow();}
+</script>
+</body>
+</html>
