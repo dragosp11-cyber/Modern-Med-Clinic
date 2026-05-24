@@ -232,6 +232,16 @@ footer { background:var(--navy); color:rgba(255,255,255,.7); padding:48px 24px 3
 footer a { color:#e88; text-decoration:none; }
 footer strong { color:var(--white); }
 .footer-logo { display:flex; justify-content:center; margin-bottom:16px; }
+.legal-links { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-top:16px; font-size:.8rem; }
+.cookie-banner { position:fixed; left:18px; right:18px; bottom:18px; z-index:1000; max-width:760px; margin:0 auto; background:var(--white); color:var(--gray-500); border:1px solid var(--gray-200); border-radius:12px; box-shadow:0 16px 50px rgba(15,23,42,.18); padding:18px; display:none; gap:14px; align-items:center; justify-content:space-between; }
+.cookie-banner.show { display:flex; }
+.cookie-banner p { margin:0; font-size:.88rem; }
+.cookie-banner a { color:var(--red); font-weight:700; }
+.cookie-actions { display:flex; gap:10px; flex-shrink:0; }
+.cookie-actions button { border:0; border-radius:8px; padding:10px 13px; font-weight:700; cursor:pointer; }
+.cookie-actions .accept { background:var(--red); color:#fff; }
+.cookie-actions .decline { background:var(--gray-100); color:var(--gray-500); }
+.google-review-link { display:inline-flex; align-items:center; justify-content:center; margin-top:18px; padding:12px 18px; border-radius:8px; background:var(--navy); color:#fff; text-decoration:none; font-weight:700; }
 
 /* SUCCESS */
 .success-msg { display:none; text-align:center; padding:40px 20px; }
@@ -256,6 +266,9 @@ footer strong { color:var(--white); }
   .doctors-grid { grid-template-columns:1fr; }
   .doctor-card { flex-direction:column; align-items:center; text-align:center; }
   .hero-cta { flex-direction:column; align-items:center; }
+  .cookie-banner { align-items:flex-start; flex-direction:column; }
+  .cookie-actions { width:100%; }
+  .cookie-actions button { flex:1; }
 }
 
 @keyframes fadeUp { from{opacity:.01;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
@@ -739,7 +752,7 @@ footer strong { color:var(--white); }
         <p class="form-note">Dacă lăsați email sau telefon, mesajul ajunge la clinică pentru a putea clarifica direct o eventuală nemulțumire. Recenzia publică rămâne anonimă.</p>
         <button class="btn" id="submitBtn" type="button">Trimite chestionarul <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
       </div>
-      <div class="success-msg" id="successMsg"><div class="check"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/></svg></div><h3>Mulțumim pentru feedback!</h3><p id="successText">Răspunsul dumneavoastră a fost înregistrat și ne va ajuta să ne îmbunătățim serviciile.</p></div>
+      <div class="success-msg" id="successMsg"><div class="check"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/></svg></div><h3>Mulțumim pentru feedback!</h3><p id="successText">Răspunsul dumneavoastră a fost înregistrat și ne va ajuta să ne îmbunătățim serviciile.</p><a class="google-review-link" href="https://search.google.com/local/writereview?placeid=ChIJeeeytLcYtEARUR9iUHh5HBc" target="_blank" rel="noopener">Lasă recenzia și pe Google</a></div>
     </div>
   </div>
 </section>
@@ -769,11 +782,28 @@ footer strong { color:var(--white); }
     <p><strong>Modern Med Clinic SRL</strong></p>
     <p style="margin-top:6px;">Bulevardul București nr. 5, Focșani 620144, Vrancea</p>
     <p style="margin-top:4px;"><a href="tel:+40733100837">0733 100 837</a> · <a href="tel:+40734264176">0734 264 176</a></p>
+    <div class="legal-links">
+      <a href="/termeni.html">Termeni și condiții</a>
+      <a href="/confidentialitate.html">Confidențialitate / GDPR</a>
+      <a href="/cookies.html">Politica cookies</a>
+    </div>
     <p style="margin-top:16px; font-size:.78rem;">© 2026 Modern Med Clinic SRL. Toate drepturile rezervate.</p>
   </div>
 </footer>
 
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Informare cookies">
+  <p>Folosim doar cookies/tehnologii necesare pentru funcționarea site-ului și pentru a reține preferința privind acest mesaj. Detalii în <a href="/cookies.html">Politica cookies</a>.</p>
+  <div class="cookie-actions">
+    <button class="decline" id="cookieDecline" type="button">Refuz</button>
+    <button class="accept" id="cookieAccept" type="button">Accept</button>
+  </div>
+</div>
+
 <script>
+const cookieBanner=document.getElementById('cookieBanner');
+if(!localStorage.getItem('mmcCookieChoice')) cookieBanner.classList.add('show');
+document.getElementById('cookieAccept').addEventListener('click',()=>{localStorage.setItem('mmcCookieChoice','accept');cookieBanner.classList.remove('show');});
+document.getElementById('cookieDecline').addEventListener('click',()=>{localStorage.setItem('mmcCookieChoice','decline');cookieBanner.classList.remove('show');});
 window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20);});
 document.getElementById('menuBtn').addEventListener('click',()=>{document.getElementById('navLinks').classList.toggle('open');});
 document.querySelectorAll('.nav-links a').forEach(a=>{a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));});
